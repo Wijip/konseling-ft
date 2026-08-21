@@ -1,0 +1,18 @@
+https://repo.packagist.org could not be fully loaded (curl error 56 while downloading https://repo.packagist.org/packages.json: Failure when receiving data from the peer), package information was loaded from the local cache and may be out of date
+./composer.json has been updated
+Running composer update maatwebsite/excel --with-all-dependencies
+Loading composer repositories with package information
+Updating dependencies
+Your requirements could not be resolved to an installable set of packages.
+
+  Problem 1
+    - Root composer.json requires maatwebsite/excel 3.1.55 -> satisfiable by maatwebsite/excel[3.1.55].
+    - maatwebsite/excel 3.1.55 requires phpoffice/phpspreadsheet ^1.18 -> satisfiable by phpoffice/phpspreadsheet[1.18.0, ..., 1.30.2].
+    - phpoffice/phpspreadsheet[1.18.0, ..., 1.30.2] require ext-gd * -> it is missing from your system. Install or enable PHP's gd extension.
+
+To enable extensions, verify that they are enabled in your .ini files:
+    - C:\xampp\php\php.ini
+You can also run `php --ini` in a terminal to see which files are used by PHP in CLI mode.
+Alternatively, you can run Composer with `--ignore-platform-req=ext-gd` to temporarily ignore these required extensions.
+
+Installation failed, reverting ./composer.json and ./composer.lock to their original content.

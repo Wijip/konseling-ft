@@ -1,0 +1,184 @@
+
+   FAIL  Tests\Feature\AdminTest
+  ⨯ admin can expor… 1.31s  
+  ⨯ admin can expor… 0.29s  
+  ────────────────────────  
+   FAILED  Tests\Feature…   
+  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+Error: Interface "Maatwebsite\Excel\Concerns\FromQuery" not found in C:\DISK D\PROJECT INKA\konseling-hc\app\Exports\CounselingExport.php:10
+Stack trace:
+#0 C:\DISK D\PROJECT INKA\konseling-hc\vendor\composer\ClassLoader.php(576): include()
+#1 C:\DISK D\PROJECT INKA\konseling-hc\vendor\composer\ClassLoader.php(427): Composer\Autoload\{closure}('C:\\DISK D\\PROJE...')
+#2 C:\DISK D\PROJECT INKA\konseling-hc\app\Http\Controllers\Admin\CounselingController.php(28): Composer\Autoload\ClassLoader->loadClass('App\\Exports\\Cou...')
+#3 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Admin\CounselingController->export(Object(Illuminate\Http\Request))
+#4 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Admin\CounselingController), 'export')
+#5 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Auth\Middleware\Authenticate.php(64): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Auth\Middleware\Authenticate->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken->handle(Object(Illuminate\Http\Request), Object(Closure))
+#14 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#15 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\View\Middleware\ShareErrorsFromSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#16 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#17 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession->handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
+#18 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Session\Middleware\StartSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#19 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#22 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Cookie\Middleware\EncryptCookies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#23 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#24 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#25 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#26 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#27 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#28 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#29 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#30 C:\DISK D\PROJECT INKA\konseling-hc\app\Http\Middleware\SecurityHeaders.php(16): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#31 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SecurityHeaders->handle(Object(Illuminate\Http\Request), Object(Closure))
+#32 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#33 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#34 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#37 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#38 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#39 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#40 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#41 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#42 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#43 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#44 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#45 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#46 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#47 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#48 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#49 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#50 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(368): Illuminate\Foundation\Testing\TestCase->call('GET', 'http://localhos...', Array, Array, Array, Array)
+#51 C:\DISK D\PROJECT INKA\konseling-hc\tests\Feature\AdminTest.php(162): Illuminate\Foundation\Testing\TestCase->get('http://localhos...')
+#52 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestCase.php(1548): Tests\Feature\AdminTest->admin_can_export_counseling_to_excel()
+#53 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestCase.php(686): PHPUnit\Framework\TestCase->runTest()
+#54 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestRunner.php(106): PHPUnit\Framework\TestCase->runBare()
+#55 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestCase.php(516): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\AdminTest))
+#56 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestSuite.php(374): PHPUnit\Framework\TestCase->run()
+#57 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestSuite.php(374): PHPUnit\Framework\TestSuite->run()
+#58 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestSuite.php(374): PHPUnit\Framework\TestSuite->run()
+#59 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#60 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\TextUI\Application.php(204): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#61 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#62 {main}
+
+----------------------------------------------------------------------------------
+
+Interface "Maatwebsite\Excel\Concerns\FromQuery" not found
+
+  at tests\Feature\AdminTest.php:164
+    160▕         CounselingSession::factory()->count(3)->create();
+    161▕ 
+    162▕         $response = $this->get(route('admin.counseling.export'));
+    163▕ 
+  ➜ 164▕         $response->assertStatus(200);
+    165▕         $response->assertHeader(
+    166▕             'content-type',
+    167▕             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    168▕         );
+
+  ────────────────────────  
+   FAILED  Tests\Feature…   
+  Expected response status code [200] but received 500.
+Failed asserting that 500 is identical to 200.
+
+The following exception occurred during the last request:
+
+Error: Interface "Maatwebsite\Excel\Concerns\FromQuery" not found in C:\DISK D\PROJECT INKA\konseling-hc\app\Exports\BookingExport.php:11
+Stack trace:
+#0 C:\DISK D\PROJECT INKA\konseling-hc\vendor\composer\ClassLoader.php(576): include()
+#1 C:\DISK D\PROJECT INKA\konseling-hc\vendor\composer\ClassLoader.php(427): Composer\Autoload\{closure}('C:\\DISK D\\PROJE...')
+#2 C:\DISK D\PROJECT INKA\konseling-hc\app\Http\Controllers\Admin\MeetingBookingController.php(36): Composer\Autoload\ClassLoader->loadClass('App\\Exports\\Boo...')
+#3 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(47): App\Http\Controllers\Admin\MeetingBookingController->export(Object(Illuminate\Http\Request))
+#4 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Route.php(266): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\Admin\MeetingBookingController), 'export')
+#5 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Route.php(212): Illuminate\Routing\Route->runController()
+#6 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Router.php(808): Illuminate\Routing\Route->run()
+#7 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#8 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(51): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#9 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#10 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Auth\Middleware\Authenticate.php(64): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Auth\Middleware\Authenticate->handle(Object(Illuminate\Http\Request), Object(Closure))
+#12 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(88): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken->handle(Object(Illuminate\Http\Request), Object(Closure))
+#14 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#15 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\View\Middleware\ShareErrorsFromSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#16 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#17 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession->handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
+#18 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Session\Middleware\StartSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#19 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse->handle(Object(Illuminate\Http\Request), Object(Closure))
+#21 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(75): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#22 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Cookie\Middleware\EncryptCookies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#23 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#24 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Router.php(807): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#25 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Router.php(786): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#26 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Router.php(750): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#27 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Routing\Router.php(739): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#28 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(201): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#29 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(170): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#30 C:\DISK D\PROJECT INKA\konseling-hc\app\Http\Middleware\SecurityHeaders.php(16): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#31 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): App\Http\Middleware\SecurityHeaders->handle(Object(Illuminate\Http\Request), Object(Closure))
+#32 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#33 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#34 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(51): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#37 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#38 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#39 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#40 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(110): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#41 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#42 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Http\Middleware\HandleCors.php(49): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#43 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Http\Middleware\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#44 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks.php(22): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#45 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(209): Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks->handle(Object(Illuminate\Http\Request), Object(Closure))
+#46 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(127): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#47 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(176): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#48 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(145): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#49 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(607): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#50 C:\DISK D\PROJECT INKA\konseling-hc\vendor\laravel\framework\src\Illuminate\Foundation\Testing\Concerns\MakesHttpRequests.php(368): Illuminate\Foundation\Testing\TestCase->call('GET', 'http://localhos...', Array, Array, Array, Array)
+#51 C:\DISK D\PROJECT INKA\konseling-hc\tests\Feature\AdminTest.php(249): Illuminate\Foundation\Testing\TestCase->get('http://localhos...')
+#52 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestCase.php(1548): Tests\Feature\AdminTest->admin_can_export_bookings_to_excel()
+#53 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestCase.php(686): PHPUnit\Framework\TestCase->runTest()
+#54 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestRunner.php(106): PHPUnit\Framework\TestCase->runBare()
+#55 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestCase.php(516): PHPUnit\Framework\TestRunner->run(Object(Tests\Feature\AdminTest))
+#56 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestSuite.php(374): PHPUnit\Framework\TestCase->run()
+#57 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestSuite.php(374): PHPUnit\Framework\TestSuite->run()
+#58 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\Framework\TestSuite.php(374): PHPUnit\Framework\TestSuite->run()
+#59 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(64): PHPUnit\Framework\TestSuite->run()
+#60 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\src\TextUI\Application.php(204): PHPUnit\TextUI\TestRunner->run(Object(PHPUnit\TextUI\Configuration\Configuration), Object(PHPUnit\Runner\ResultCache\DefaultResultCache), Object(PHPUnit\Framework\TestSuite))
+#61 C:\DISK D\PROJECT INKA\konseling-hc\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#62 {main}
+
+----------------------------------------------------------------------------------
+
+Interface "Maatwebsite\Excel\Concerns\FromQuery" not found
+
+  at tests\Feature\AdminTest.php:251
+    247▕         MeetingBooking::factory()->count(2)->create(['meeting_schedule_id' => $schedule->id]);
+    248▕ 
+    249▕         $response = $this->get(route('admin.bookings.export'));
+    250▕ 
+  ➜ 251▕         $response->assertStatus(200);
+    252▕         $response->assertHeader(
+    253▕             'content-type',
+    254▕             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    255▕         );
+
+
+  Tests:    2 failed (2 assertions)
+  Duration: 1.88s
+

@@ -1,0 +1,412 @@
+/* ========================================
+   MOBILE RESPONSIVE STYLES
+   Global responsive overrides for all pages
+   ======================================== */
+
+/* ===== GLOBAL: Box-sizing ===== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* ===== NAVBAR MOBILE (for public layout with .navbar class) ===== */
+@media (max-width: 768px) {
+    .navbar {
+        height: auto !important;
+        min-height: 60px;
+        padding: 0.5rem 0 !important;
+    }
+
+    .navbar>.container {
+        display: flex !important;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0 0.75rem !important;
+    }
+
+    .navbar .logo-container {
+        gap: 0.5rem !important;
+    }
+
+    .navbar .logo-container img {
+        height: 28px !important;
+    }
+
+    .navbar .logo-container h1 {
+        font-size: 0.8rem !important;
+    }
+
+    .navbar .logo-container p {
+        font-size: 0.55rem !important;
+    }
+
+    /* Hide nav links on mobile, show only logo and login */
+    .navbar .hidden.md\:flex,
+    .navbar [style*="justify-self: center"] {
+        display: none !important;
+    }
+
+    .navbar .btn {
+        padding: 0.375rem 0.75rem !important;
+        font-size: 0.75rem !important;
+    }
+}
+
+/* ===== NAVBAR MOBILE (for app layout with .nav-content class) ===== */
+@media (max-width: 768px) {
+    .nav-content {
+        height: auto !important;
+        min-height: 56px;
+        padding: 0.5rem 0;
+    }
+
+    .nav-logos {
+        gap: 0.35rem !important;
+    }
+
+    .nav-logos img {
+        height: 26px !important;
+    }
+
+    .nav-divider {
+        height: 18px !important;
+        margin: 0 0.25rem !important;
+    }
+
+    .nav-title img {
+        height: 26px !important;
+    }
+
+    .nav-text strong {
+        font-size: 0.8rem !important;
+    }
+
+    .nav-text small {
+        font-size: 0.45rem !important;
+    }
+
+    .btn-login {
+        padding: 0.35rem 0.75rem !important;
+        font-size: 0.75rem !important;
+    }
+}
+
+/* ===== HERO SECTION ===== */
+@media (max-width: 640px) {
+    .hero-section {
+        padding: 2rem 1rem !important;
+    }
+
+    .hero-title {
+        font-size: 2rem !important;
+    }
+
+    .hero-description {
+        font-size: 0.9rem !important;
+        padding: 0 0.5rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 0.75rem !important;
+        align-items: stretch;
+    }
+
+    .hero-buttons .btn-primary,
+    .hero-buttons .btn-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hero-badge {
+        font-size: 0.75rem !important;
+    }
+}
+
+/* ===== FEATURES SECTION ===== */
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .features-section {
+        padding: 2rem 1rem !important;
+    }
+
+    .feature-card {
+        padding: 1.25rem !important;
+    }
+}
+
+/* ===== CONTAINER ===== */
+@media (max-width: 640px) {
+    .container {
+        padding: 0 0.75rem !important;
+    }
+}
+
+/* ===== SELECTION GRID (Identity & Mode) ===== */
+@media (max-width: 640px) {
+    .selection-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        padding: 0 !important;
+    }
+
+    .selection-card {
+        padding: 1.25rem !important;
+    }
+
+    .selection-card-icon {
+        width: 3rem !important;
+        height: 3rem !important;
+    }
+
+    .selection-card-icon svg {
+        width: 1.5rem !important;
+        height: 1.5rem !important;
+    }
+
+    .selection-card-title {
+        font-size: 1.1rem !important;
+    }
+
+    .selection-card-description {
+        font-size: 0.875rem !important;
+    }
+
+    .page-header {
+        margin-bottom: 1.5rem !important;
+    }
+
+    .page-title {
+        font-size: 1.5rem !important;
+    }
+
+    .page-subtitle {
+        font-size: 0.875rem !important;
+    }
+}
+
+/* ===== CALENDAR PAGE ===== */
+@media (max-width: 768px) {
+    .calendar-container {
+        border-radius: 1rem !important;
+    }
+
+    .calendar-left {
+        padding: 1.25rem !important;
+    }
+
+    .calendar-right {
+        padding: 1.25rem !important;
+    }
+
+    .calendar-left h2 {
+        font-size: 1.25rem !important;
+    }
+
+    .calendar-right h2 {
+        font-size: 1.125rem !important;
+    }
+
+    .calendar-right>p {
+        font-size: 0.9rem !important;
+        margin-bottom: 1.25rem !important;
+    }
+
+    .calendar-day-btn {
+        width: 2.25rem !important;
+        height: 2.25rem !important;
+    }
+
+    .calendar-day-btn span {
+        font-size: 0.85rem !important;
+    }
+
+    .legend-item {
+        font-size: 0.75rem !important;
+    }
+
+    .slot-card {
+        padding: 1rem !important;
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 0.75rem;
+    }
+
+    .slot-divider {
+        border-left: none !important;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        padding-left: 0 !important;
+        padding-top: 0.75rem;
+        margin-left: 0 !important;
+        margin-top: 0;
+        width: 100%;
+    }
+
+    .slot-card-selected .slot-divider {
+        border-top-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-day-btn {
+        width: 2rem !important;
+        height: 2rem !important;
+    }
+
+    .calendar-day-btn span {
+        font-size: 0.8rem !important;
+    }
+}
+
+/* ===== FORMS (Counseling & Meeting) ===== */
+@media (max-width: 640px) {
+    .form-container {
+        padding: 0 !important;
+    }
+
+    .card {
+        padding: 1rem !important;
+        border-radius: 0.75rem !important;
+    }
+
+    .card-header {
+        padding-bottom: 0.75rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+
+    .card-title {
+        font-size: 1.15rem !important;
+    }
+
+    .form-group {
+        margin-bottom: 1rem !important;
+    }
+
+    .form-label {
+        font-size: 0.9rem !important;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea,
+    .form-control {
+        padding: 0.625rem 0.75rem !important;
+        font-size: 1rem !important;
+    }
+
+    .radio-group {
+        gap: 0.5rem !important;
+    }
+
+    .radio-option.card {
+        padding: 0.625rem !important;
+        font-size: 0.875rem !important;
+    }
+
+    .btn-primary,
+    .btn-block {
+        font-size: 1rem !important;
+        padding: 0.75rem 1rem !important;
+    }
+
+    .alert {
+        padding: 0.75rem !important;
+        font-size: 0.85rem !important;
+    }
+}
+
+/* ===== MEETING FORM - Schedule Detail Card ===== */
+@media (max-width: 640px) {
+    .schedule-detail-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+    }
+}
+
+/* ===== MODE SELECTION PAGE ===== */
+@media (max-width: 640px) {
+    .mode-selection-wrapper {
+        padding: 1.5rem 0.75rem !important;
+    }
+
+    .mode-card-body p {
+        font-size: 0.85rem !important;
+        min-height: auto !important;
+    }
+}
+
+/* ===== FOOTER ===== */
+@media (max-width: 640px) {
+    .footer {
+        padding: 1rem 0 !important;
+        font-size: 0.75rem !important;
+    }
+}
+
+/* ===== GLOBAL PADDING HELPERS ===== */
+@media (max-width: 640px) {
+    [style*="padding: 3rem"] {
+        padding: 1.5rem 0.75rem !important;
+    }
+
+    [style*="padding: 2rem 0"] {
+        padding: 1rem 0 !important;
+    }
+
+    .mb-8 {
+        margin-bottom: 1rem !important;
+    }
+}
+
+/* ===== LANJUTKAN BUTTON (Calendar Page) ===== */
+.calendar-action-btn {
+    width: 80%;
+    max-width: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem 2.5rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    letter-spacing: 0.025em;
+    margin: 0 auto;
+}
+
+.calendar-action-btn-active {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: white;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.35);
+}
+
+.calendar-action-btn-active:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.45);
+}
+
+.calendar-action-btn-disabled {
+    background-color: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+@media (max-width: 640px) {
+    .calendar-action-btn {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0.875rem 1.5rem !important;
+        font-size: 1rem !important;
+    }
+}

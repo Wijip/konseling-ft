@@ -1,0 +1,133 @@
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    border: none;
+    font-size: 0.95rem;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--light-gray);
+    color: var(--dark-gray);
+}
+
+.btn-outline:hover {
+    border-color: var(--dark-gray);
+    background-color: var(--white);
+}
+
+.btn-text {
+    background: none;
+    color: var(--primary);
+    padding: 0.5rem 1rem;
+}
+
+.btn-text:hover {
+    text-decoration: underline;
+}
+
+/* Cards */
+.card {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--light-gray);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.card:hover {
+    box-shadow: var(--shadow);
+}
+
+.card-header {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--light-gray);
+    padding-bottom: 1rem;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--dark-gray);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-main);
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.form-check:hover,
+.form-check.active {
+    border-color: var(--primary);
+    background-color: var(--primary-soft);
+}
+
+.badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.badge-success {
+    background: var(--soft-green);
+    color: var(--green-text);
+}
+
+.badge-warning {
+    background: #PFf8E6;
+    color: #B45309;
+}
+
+.badge-danger {
+    background: var(--primary-soft);
+    color: var(--primary);
+}
