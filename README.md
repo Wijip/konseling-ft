@@ -238,7 +238,7 @@ MAIL_FROM_NAME="${APP_NAME}"
 #### 8️ Jalankan Migrasi Database
 
 ```bash
-php artisan migrate
+php artisan migrate 
 ```
 
 #### 9️ Seed Data Awal
@@ -255,10 +255,18 @@ Perintah ini akan membuat:
 #### 10 Jalankan Server Development
 
 ```bash
-php artisan serve
+php artisan serve / php artisan serve --host=0.0.0.0 --port=8000
 ```
 
 Aplikasi akan berjalan di: **http://127.0.0.1:8000** 🎉
+jika menjalankan php artisan serve --host=0.0.0.0 --port=8000
+akan dapat di akses lewat perangkat lain dengan cara akses ip device yang menjalankan websitenya
+cara cek ip nya jika di windows sebagai berikut
+1. buka task manager
+2. setelah terbuka buka tab permormance
+3. kemudian buka bagian tab wifi atau ethernet.
+4. akan terdapat ipv4, akan ada format seperti 192.168.xx.xx (xx itu bisa berfariasi)
+5. kemudian buka di browser prangkat lain akses ip address tersebut dengan cara memasukkan 192.168.xx.xx:8000
 
 ---
 
