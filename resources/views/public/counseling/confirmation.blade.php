@@ -23,6 +23,23 @@
             color: #ffffff;
             box-shadow: 0 6px 16px rgba(6, 78, 59, 0.3);
         }
+        .btn-copy-code {
+            background-color: #064e3b;
+            color: #ffffff;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.875rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            transition: background-color 0.2s ease;
+        }
+        .btn-copy-code:hover {
+            background-color: #043e2f;
+        }
     </style>
 
     <div style="padding: 3rem 1rem 5rem 1rem; background-color: #f9fafb; min-height: calc(100vh - 160px);">
@@ -46,14 +63,22 @@
                     Simpan kode tracking berikut untuk melanjutkan chat konseling Anda.
                 </p>
 
-                {{-- Kode Tracking Box (Hijau UNESA) --}}
+                {{-- Kode Tracking Box (Hijau UNESA + Copy Button) --}}
                 <div style="background-color: #f0fdf4; border: 2px dashed #064e3b; border-radius: 1rem; padding: 1.5rem; margin-bottom: 2rem;">
                     <p style="font-size: 0.75rem; color: #064e3b; margin: 0 0 0.5rem 0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">
                         Kode Tracking
                     </p>
-                    <p style="font-size: 2rem; font-weight: 900; color: #064e3b; font-family: 'Courier New', monospace; letter-spacing: 0.15em; margin: 0;">
-                        {{ $session->tracking_code }}
-                    </p>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+                        <p id="trackingCodeText" style="font-size: 2rem; font-weight: 900; color: #064e3b; font-family: 'Courier New', monospace; letter-spacing: 0.15em; margin: 0;">
+                            {{ $session->tracking_code }}
+                        </p>
+                        <button type="button" class="btn-copy-code" onclick="copyTrackingCode('{{ $session->tracking_code }}', this)" title="Salin Kode">
+                            <svg style="width: 1.125rem; height: 1.125rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                            <span id="copyBtnText">Salin</span>
+                        </button>
+                    </div>
                 </div>
 
                 {{-- Alert Warning --}}
@@ -81,4 +106,38 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function copyTrackingCode(code, btnElement) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(code).then(() => showCopySuccess(btnElement));
+            } else {
+                let textArea = document.createElement("textarea");
+                textArea.value = code;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showCopySuccess(btnElement);
+                } catch (err) {
+                    console.error('Gagal menyalin kode tracking', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function showCopySuccess(btnElement) {
+            const btnText = btnElement.querySelector('#copyBtnText');
+            const originalText = btnText.innerText;
+            btnText.innerText = 'Tersalin!';
+            btnElement.style.backgroundColor = '#047857';
+            setTimeout(() => {
+                btnText.innerText = originalText;
+                btnElement.style.backgroundColor = '#064e3b';
+            }, 2000);
+        }
+    </script>
 @endsection

@@ -23,6 +23,23 @@
             color: #ffffff;
             box-shadow: 0 6px 16px rgba(6, 78, 59, 0.25);
         }
+        .btn-copy-code {
+            background-color: #064e3b;
+            color: #ffffff;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            transition: background-color 0.2s ease;
+        }
+        .btn-copy-code:hover {
+            background-color: #043e2f;
+        }
     </style>
 
     <div style="padding: 3rem 1rem; background-color: #f9fafb; min-height: calc(100vh - 160px);">
@@ -37,8 +54,17 @@
                 </a>
                 <h1 style="font-size: 1.875rem; font-weight: 800; color: #111827; margin: 0;">Status Layanan</h1>
                 
-                <div style="background: #f0fdf4; display: inline-block; padding: 0.5rem 1.5rem; border-radius: 0.75rem; font-weight: 800; font-size: 1.5rem; letter-spacing: 2px; border: 1.5px dashed #064e3b; margin-top: 1rem; color: #064e3b;">
-                    {{ $data->tracking_code }}
+                {{-- Box Kode Tracking + Tombol Copy --}}
+                <div style="background: #f0fdf4; display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.5rem 1.25rem; border-radius: 0.75rem; border: 1.5px dashed #064e3b; margin-top: 1rem; flex-wrap: wrap; justify-content: center;">
+                    <span id="trackingCodeText" style="font-weight: 800; font-size: 1.5rem; letter-spacing: 2px; color: #064e3b; font-family: 'Courier New', monospace;">
+                        {{ $data->tracking_code }}
+                    </span>
+                    <button type="button" class="btn-copy-code" onclick="copyTrackingCode('{{ $data->tracking_code }}', this)" title="Salin Kode">
+                        <svg style="width: 1rem; height: 1rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                        <span id="copyBtnText">Salin</span>
+                    </button>
                 </div>
             </div>
 
@@ -136,4 +162,38 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function copyTrackingCode(code, btnElement) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(code).then(() => showCopySuccess(btnElement));
+            } else {
+                let textArea = document.createElement("textarea");
+                textArea.value = code;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showCopySuccess(btnElement);
+                } catch (err) {
+                    console.error('Gagal menyalin kode tracking', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function showCopySuccess(btnElement) {
+            const btnText = btnElement.querySelector('#copyBtnText');
+            const originalText = btnText.innerText;
+            btnText.innerText = 'Tersalin!';
+            btnElement.style.backgroundColor = '#047857';
+            setTimeout(() => {
+                btnText.innerText = originalText;
+                btnElement.style.backgroundColor = '#064e3b';
+            }, 2000);
+        }
+    </script>
 @endsection
