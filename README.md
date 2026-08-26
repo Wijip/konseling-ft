@@ -1,7 +1,7 @@
 
-# Konseling HC — Sistem Konseling Human Capital PT INKA
+# Konseling FT — Sistem Konseling Fakultas Teknik UNESA
 
-Aplikasi web konseling internal untuk karyawan PT INKA (Industri Kereta Api). Menyediakan layanan konseling melalui **Chat Online** dan **Pertemuan Langsung (Tatap Muka / Zoom)** dengan dukungan fitur anonimitas, tracking, dan **notifikasi email otomatis**.
+Aplikasi web konseling internal untuk karyawan, mahasiswa, dan Dosen Fakultas Teknik UNESA. Menyediakan layanan konseling melalui **Chat Online** dan **Pertemuan Langsung (Tatap Muka / Zoom)** dengan dukungan fitur anonimitas, tracking, dan **notifikasi email otomatis**.
 
 ---
 
@@ -56,7 +56,7 @@ Aplikasi web konseling internal untuk karyawan PT INKA (Industri Kereta Api). Me
 ## 📁 Struktur Project
 
 ```
-konseling-hc/
+konseling-ft/
 ├── app/
 │   ├── Http/
 │   │   ├── Controllers/
@@ -152,7 +152,7 @@ Pastikan software berikut sudah terinstall di komputer Anda:
 
 ```bash
 git clone <repository-url>
-cd konseling-hc
+cd konseling-ft
 ```
 
 #### 2️ Install Dependencies PHP
@@ -184,19 +184,19 @@ php artisan key:generate
 
 #### 5️ Buat Database MySQL
 
-Buat database baru dengan nama `konseling_hc`. Pilih salah satu cara:
+Buat database baru dengan nama `konseling_ft`. Pilih salah satu cara:
 
 **Cara 1 — Via Terminal MySQL:**
 ```sql
 mysql -u root -p
-CREATE DATABASE konseling_hc CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE konseling_ft CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 EXIT;
 ```
 
 **Cara 2 — Via phpMyAdmin (XAMPP):**
 1. Buka `http://localhost/phpmyadmin`
 2. Klik tab **"Databases"**
-3. Isi nama database: `konseling_hc`
+3. Isi nama database: `konseling_ft`
 4. Pilih collation: `utf8mb4_unicode_ci`
 5. Klik **"Create"**
 
@@ -208,7 +208,7 @@ Buka file `.env` dan sesuaikan bagian database:
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=konseling_hc
+DB_DATABASE=konseling_ft
 DB_USERNAME=root
 DB_PASSWORD=
 ```
@@ -248,7 +248,7 @@ php artisan db:seed
 ```
 
 Perintah ini akan membuat:
-- **1 akun Admin** — `admin@inka.co.id` (password: `password`)
+- **1 akun Admin** — `admin@unesa.ac.id` (password: `password`)
 - **4 akun Konselor** — Erlinda, Saskia, Ekin, Joko
 - **Jadwal contoh** — 2 hari ke depan (hari kerja)
 
@@ -274,7 +274,7 @@ cara cek ip nya jika di windows sebagai berikut
 
 | Masalah | Solusi |
 |---------|--------|
-| `SQLSTATE[HY000] [1049] Unknown database` | Pastikan database `konseling_hc` sudah dibuat (Langkah 5) |
+| `SQLSTATE[HY000] [1049] Unknown database` | Pastikan database `konseling_ft` sudah dibuat (Langkah 5) |
 | `SQLSTATE[HY000] [2002] Connection refused` | Pastikan MySQL sudah berjalan (start XAMPP/Laragon) |
 | `No application encryption key has been specified` | Jalankan `php artisan key:generate` |
 | `composer install` gagal | Pastikan PHP >= 8.2 dan Composer terinstall |
@@ -299,7 +299,7 @@ Untuk mengirim notifikasi email melalui Gmail:
    MAIL_PASSWORD="generated-app-password"
    MAIL_ENCRYPTION=tls
    MAIL_FROM_ADDRESS="your-email@gmail.com"
-   MAIL_FROM_NAME="Konseling HC"
+   MAIL_FROM_NAME="Konseling FT"
    ```
 
 > ⚠️ **Penting:** Jangan gunakan password utama Gmail. Gunakan **App Password** yang digenerate dari Google.
@@ -310,8 +310,8 @@ Untuk mengirim notifikasi email melalui Gmail:
 
 | Role | Email | Password |
 |------|-------|----------|
-| **Admin** | `admin@inka.co.id` | `password` |
-| **Konselor** | `budi@inka.co.id` | `password` |
+| **Admin** | `admin@unesa.ac.id` | `password` |
+| **Konselor** | `budi@unesa.ac.id` | `password` |
 
 >  **Penting:** Ganti password default sebelum deploy ke production!
 
@@ -379,7 +379,7 @@ Login → Dashboard
 ###  Panduan untuk Karyawan (User)
 
 #### 1. Mengakses Website
-1. Buka browser dan akses alamat website Konseling HC.
+1. Buka browser dan akses alamat website Konseling FT.
 2. Anda akan melihat **halaman utama (Landing Page)** dengan dua tombol:
    - **Mulai Konseling** — untuk memulai sesi konseling.
    - **Cek Status** — untuk melacak status konseling atau booking yang sudah diajukan.
@@ -686,5 +686,5 @@ php artisan enlightn
 
 ## 📝 Lisensi
 
-Project ini dikembangkan untuk keperluan internal **PT INKA (Persero)**.
-# konseling-hc
+Project ini dikembangkan untuk keperluan internal **Fakultas Teknik UNESA**.
+# konseling-ft
