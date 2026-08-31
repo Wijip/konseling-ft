@@ -38,6 +38,11 @@
                 <div class="nav-menu">
                     <a href="{{ route('home') }}">Beranda</a>
                     <a href="{{ route('tracking.index') }}">Cek Status</a>
+                    @auth
+                        @if(!in_array(Auth::user()->role, ['admin', 'konselor']))
+                            <a href="{{ route('history') }}">Riwayat Konseling</a>
+                        @endif
+                    @endauth
                 </div>
 
                 <!-- Right: Actions (User / Admin / Guest) -->
@@ -48,10 +53,13 @@
                                 <!-- Tampilan jika Login sebagai Admin/Konselor -->
                                 <a href="{{ route('admin.dashboard') }}" class="btn-login">Dashboard Admin</a>
                             @else
-                                <!-- Tampilan jika Login sebagai User biasa -->
-                                <span style="font-weight: 600; color: #1e293b; font-size: 0.875rem;">
-                                    {{ Auth::user()->name }}
-                                </span>
+                                <!-- Tampilan jika Login sebagai User biasa (Mengarah ke Halaman Profil) -->
+                                <a href="{{ route('profile') }}" 
+                                   style="font-weight: 600; color: #1e293b; font-size: 0.875rem; text-decoration: none; transition: color 0.2s;"
+                                   onmouseover="this.style.color='#2563eb';"
+                                   onmouseout="this.style.color='#1e293b';">
+                                    👤 {{ Auth::user()->name }}
+                                </a>
                             @endif
 
                             <!-- Tombol Logout -->

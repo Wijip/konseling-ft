@@ -1,4 +1,4 @@
-@extends('layouts.public')
+@extends('layouts.app')
 
 @section('title', 'Detail Status Layanan - Konseling FT UNESA')
 

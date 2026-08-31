@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CounselingController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\TrackingController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CounselingController as AdminCounselingController;
 use App\Http\Controllers\Admin\MeetingScheduleController;
@@ -14,6 +15,12 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Riwayat Konseling User (Protected by Auth & Prevent Admin - Hanya Pengguna Non-Admin)
+Route::get('/history', [HomeController::class, 'history'])->name('history')->middleware(['auth', 'prevent_admin']);
+
+// Profil User (Protected by Auth & Prevent Admin - Hanya Pengguna Non-Admin)
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile')->middleware(['auth', 'prevent_admin']);
 
 // Counseling (Protected by Auth & Prevent Admin - Hanya Pengguna Non-Admin)
 Route::prefix('counseling')->name('counseling.')->middleware(['auth', 'prevent_admin'])->group(function () {

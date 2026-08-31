@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Tentukan password khusus admin di sini
-        $adminPassword = 'AdminFTUNESA2026!'; // <-- Ganti dengan password khusus yang Anda inginkan
+        $adminPassword = 'password';
 
         User::updateOrCreate(
             ['email' => 'admin@unesa.ac.id'],

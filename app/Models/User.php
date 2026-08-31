@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -37,6 +38,22 @@ class User extends Authenticatable
     public function isKonselor(): bool
     {
         return $this->role === 'konselor' || $this->role === 'admin';
+    }
+
+    /**
+     * Relasi ke Sesi Konseling Chat berdasarkan email user
+     */
+    public function counselingSessions(): HasMany
+    {
+        return $this->hasMany(CounselingSession::class, 'email', 'email');
+    }
+
+    /**
+     * Relasi ke Booking Pertemuan berdasarkan email user
+     */
+    public function meetingBookings(): HasMany
+    {
+        return $this->hasMany(MeetingBooking::class, 'email', 'email');
     }
 
     /**

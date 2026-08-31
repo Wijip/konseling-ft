@@ -85,12 +85,14 @@ class MeetingController extends Controller
             return back()->withErrors(['Slot ini baru saja dipesan orang lain. Silakan pilih slot lain.']);
         }
 
+        $user = auth()->user();
+
         // Simpan data booking ke database
         $booking = MeetingBooking::create([
             'meeting_schedule_id' => $schedule->id,
             'meeting_type'        => $request->meeting_type,
             'name'                => $request->name,
-            'email'               => $request->email,
+            'email'               => $request->email ?? ($user ? $user->email : null),
             'phone_number'        => $request->phone_number,
             'employee_id'         => $request->employee_id,
             'status'              => $request->status ?? 'Mahasiswa',

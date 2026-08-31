@@ -42,10 +42,12 @@ class CounselingController extends Controller
             'duration'          => 'required|string',
         ]);
 
+        $user = auth()->user();
+
         $counseling = CounselingSession::create([
             'identity_type'     => $request->identity_type,
             'name'              => $request->identity_type === 'open' ? $request->name : null,
-            'email'             => $request->identity_type === 'open' ? $request->email : null,
+            'email'             => $request->identity_type === 'open' ? ($request->email ?? ($user ? $user->email : null)) : ($user ? $user->email : null),
             'phone_number'      => $request->identity_type === 'open' ? $request->phone_number : null,
             'user_status'       => $request->identity_type === 'open' ? $request->user_status : null,
             'employee_id'       => $request->identity_type === 'open' ? $request->employee_id : null,
