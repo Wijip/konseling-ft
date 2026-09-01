@@ -6,122 +6,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Konseling Fakultas Teknik UNESA</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <style>
-        .form-input:focus {
-            border-color: #064e3b !important;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(6, 78, 59, 0.15) !important;
-        }
-        .btn-green {
-            background-color: #064e3b;
-            color: #ffffff;
-            border: none;
-            border-radius: 0.75rem;
-            font-weight: 700;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-        .btn-green:hover {
-            background-color: #043e2f;
-            box-shadow: 0 4px 12px rgba(6, 78, 59, 0.25);
-        }
-    </style>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body style="min-height: 100vh; background-color: #f9fafb; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif;">
-    <div style="width: 100%; max-width: 28rem; padding: 0 1rem;">
-        <div class="card" style="border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); padding: 2.5rem 2rem; background: #ffffff;">
+<body class="min-h-screen bg-gray-50 flex items-center justify-center font-['Inter'] antialiased p-4">
+    <div class="w-full max-w-md">
+        <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 sm:p-10">
             
             <!-- Header Section -->
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <div style="margin-bottom: 1rem;">
-                    <img src="{{ asset('images/State_University_of_Surabaya_logo.png') }}" alt="UNESA"
-                        style="height: 4.5rem; margin: 0 auto; display: block; object-fit: contain;">
+            <div class="text-center mb-8">
+                <div class="mb-4">
+                    <img src="{{ asset('images/State_University_of_Surabaya_logo.png') }}" alt="UNESA" class="h-16 mx-auto object-contain">
                 </div>
-
-                <h1 style="font-size: 1.75rem; font-weight: 800; color: #111827; margin-bottom: 0.25rem;">Login</h1>
-                <p style="color: #6b7280; font-size: 0.875rem; margin: 0;">Layanan konseling fakultas teknik</p>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-1">Login</h1>
+                <p class="text-gray-500 text-sm">Layanan konseling fakultas teknik</p>
             </div>
 
             <!-- Form Section -->
-            <form action="{{ route('login.post') }}" method="POST">
+            <form action="{{ route('login.post') }}" method="POST" class="space-y-5">
                 @csrf
 
                 <!-- Email Input -->
-                <div class="form-group" style="margin-bottom: 1.25rem;">
-                    <label for="email" class="form-label" style="display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 0.5rem;">Email</label>
+                <div>
+                    <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
                     <input type="email" name="email" id="email" value="{{ old('email') }}"
-                        class="form-input @error('email') border-red-500 @enderror" placeholder="admin@unesa.ac.id"
-                        style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.75rem; font-size: 0.875rem;"
-                        required autofocus>
+                        class="w-full px-4 py-3 border rounded-xl text-sm transition-all focus:outline-none focus:border-[#064e3b] focus:ring-2 focus:ring-[#064e3b]/20 @error('email') border-red-500 @else border-gray-300 @enderror"
+                        placeholder="admin@unesa.ac.id" required autofocus>
                     @error('email')
-                        <p class="form-error" style="color: #ef4444; font-size: 0.75rem; margin-top: 0.25rem;">{{ $message }}</p>
+                        <p class="text-red-500 text-xs mt-1.5 font-medium">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <!-- Password Input dengan Toggle Eye Icon -->
-                <div class="form-group" style="margin-bottom: 1.25rem;">
-                    <label for="password" class="form-label" style="display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 0.5rem;">Password</label>
-                    <div style="position: relative;">
+                <div>
+                    <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                    <div class="relative">
                         <input type="password" name="password" id="password"
-                            class="form-input @error('password') border-red-500 @enderror" placeholder="••••••••"
-                            style="width: 100%; padding: 0.75rem 2.75rem 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.75rem; font-size: 0.875rem; box-sizing: border-box;"
-                            required>
+                            class="w-full pl-4 pr-11 py-3 border rounded-xl text-sm transition-all focus:outline-none focus:border-[#064e3b] focus:ring-2 focus:ring-[#064e3b]/20 @error('password') border-red-500 @else border-gray-300 @enderror"
+                            placeholder="••••••••" required>
                         <button type="button" id="togglePassword"
-                            style="position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 0.25rem; color: #6b7280; display: flex; align-items: center; justify-content: center;"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-500 hover:text-gray-700 transition-colors focus:outline-none"
                             aria-label="Tampilkan atau sembunyikan password">
-                            <svg id="eyeIcon" style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <!-- Eye Open Icon -->
+                            <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                             </svg>
                         </button>
                     </div>
                     @error('password')
-                        <p class="form-error" style="color: #ef4444; font-size: 0.75rem; margin-top: 0.25rem;">{{ $message }}</p>
+                        <p class="text-red-500 text-xs mt-1.5 font-medium">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <!-- Checkbox Ingat Saya -->
-                <div style="display: flex; align-items: center; margin-bottom: 1.75rem;">
+                <div class="flex items-center">
                     <input type="checkbox" name="remember" id="remember"
-                        style="width: 1rem; height: 1rem; accent-color: #064e3b; border-color: #d1d5db; border-radius: 0.25rem; cursor: pointer;">
-                    <label for="remember" style="margin-left: 0.5rem; font-size: 0.875rem; color: #6b7280; cursor: pointer;">Ingat saya</label>
+                        class="w-4 h-4 text-[#064e3b] border-gray-300 rounded focus:ring-[#064e3b] accent-[#064e3b] cursor-pointer">
+                    <label for="remember" class="ml-2 text-sm text-gray-600 cursor-pointer select-none">Ingat saya</label>
                 </div>
 
                 <!-- Submit Button -->
-                <div style="display: flex; justify-content: center;">
-                    <button type="submit" class="btn-green"
-                        style="font-size: 1rem; padding: 0.875rem; font-weight: 700; width: 100%;">
+                <div>
+                    <button type="submit" class="w-full bg-[#064e3b] hover:bg-[#043e2f] text-white font-bold py-3.5 px-4 rounded-xl shadow-md hover:shadow-lg transition-all text-base cursor-pointer">
                         Masuk
                     </button>
                 </div>
             </form>
 
             <!-- Register Link -->
-            <div style="margin-top: 1.25rem; text-align: center; font-size: 0.875rem; color: #6b7280;">
+            <div class="mt-5 text-center text-sm text-gray-600">
                 Belum punya akun? 
-                <a href="{{ route('register') }}"
-                    style="color: #064e3b; font-weight: 700; text-decoration: none;"
-                    onmouseover="this.style.textDecoration='underline'"
-                    onmouseout="this.style.textDecoration='none'">
+                <a href="{{ route('register') }}" class="text-[#064e3b] font-bold hover:underline">
                     Daftar di sini
                 </a>
             </div>
 
             <!-- Back Link -->
-            <div style="margin-top: 1.5rem; text-align: center; padding-top: 1.25rem; border-top: 1px solid #f3f4f6;">
-                <a href="{{ route('home') }}"
-                    style="color: #6b7280; text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s;"
-                    onmouseover="this.style.color='#064e3b'" onmouseout="this.style.color='#6b7280'">
+            <div class="mt-6 pt-5 border-t border-gray-100 text-center">
+                <a href="{{ route('home') }}" class="text-sm font-medium text-gray-500 hover:text-[#064e3b] transition-colors">
                     ← Kembali ke Beranda
                 </a>
             </div>
         </div>
 
         <!-- Footer Copyright -->
-        <div style="margin-top: 2rem; text-align: center; font-size: 0.75rem; color: #9ca3af;">
+        <div class="mt-8 text-center text-xs text-gray-400 font-medium">
             &copy; {{ date('Y') }} Fakultas Teknik UNESA. All rights reserved.
         </div>
     </div>
@@ -139,10 +108,8 @@
                     passwordInput.type = isPassword ? 'text' : 'password';
 
                     if (isPassword) {
-                        // Eye Slash Icon (Sembunyi)
                         eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858-5.908a10.025 10.025 0 011.832-.443c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21M3 3l18 18" />`;
                     } else {
-                        // Eye Open Icon (Tampil)
                         eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />`;
                     }
                 });

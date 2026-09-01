@@ -3,55 +3,62 @@
 @section('title', 'Profil Saya')
 
 @section('content')
-<div style="max-width: 800px; margin: 2.5rem auto; padding: 0 1rem;">
-    <!-- Profile Card Header -->
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 2rem;">
-        <div style="display: flex; align-items: center; gap: 1.5rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 1.5rem; margin-bottom: 1.5rem;">
-            <div style="width: 70px; height: 70px; border-radius: 50%; background-color: #2563eb; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; font-weight: 700;">
-                {{ strtoupper(substr($user->name, 0, 1)) }}
-            </div>
-            <div>
-                <h1 style="font-size: 1.5rem; font-weight: 700; color: #0f172a; margin: 0 0 0.25rem 0;">{{ $user->name }}</h1>
-                <p style="color: #64748b; margin: 0; font-size: 0.95rem;">{{ $user->email }}</p>
-                <span style="display: inline-block; margin-top: 0.5rem; background: #e0e7ff; color: #3730a3; padding: 0.2rem 0.65rem; border-radius: 9999px; font-weight: 600; font-size: 0.75rem;">
-                    {{ ucfirst($user->role ?? 'Pengguna') }}
-                </span>
-            </div>
-        </div>
-
-        <!-- Account Detail Grid -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-            <div style="background: #f8fafc; padding: 1rem; border-radius: 0.5rem; border: 1px solid #f1f5f9;">
-                <span style="font-size: 0.8rem; color: #64748b; display: block; margin-bottom: 0.25rem;">Terdaftar Sejak</span>
-                <strong style="color: #1e293b; font-size: 0.95rem;">{{ $user->created_at ? $user->created_at->format('d M Y') : '-' }}</strong>
-            </div>
-            <div style="background: #f8fafc; padding: 1rem; border-radius: 0.5rem; border: 1px solid #f1f5f9;">
-                <span style="font-size: 0.8rem; color: #64748b; display: block; margin-bottom: 0.25rem;">Total Aktivitas Konseling</span>
-                <strong style="color: #2563eb; font-size: 0.95rem;">{{ $totalCounseling }} Kali Konsultasi</strong>
-            </div>
-        </div>
-    </div>
-
-    <!-- Activity Summary Section -->
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-        <h2 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin: 0 0 1rem 0;">Ringkasan Konseling</h2>
+<div class="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-gray-50/50 min-h-[calc(100vh-160px)]">
+    <div class="max-w-3xl mx-auto space-y-6">
         
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-            <div style="border: 1px solid #e2e8f0; padding: 1rem; border-radius: 0.5rem;">
-                <div style="font-size: 0.85rem; color: #64748b;">Konseling Chat Online</div>
-                <div style="font-size: 1.5rem; font-weight: 700; color: #059669; margin-top: 0.25rem;">{{ $totalChat }}</div>
+        <!-- Profile Card Header & Details -->
+        <div class="bg-white rounded-2xl sm:rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-5 pb-6 mb-6 border-b border-gray-100">
+                {{-- Avatar Initial --}}
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#064e3b] text-white flex items-center justify-center text-2xl sm:text-3xl font-extrabold shadow-md shrink-0">
+                    {{ strtoupper(substr($user->name, 0, 1)) }}
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-extrabold text-gray-900 mb-1">{{ $user->name }}</h1>
+                    <p class="text-gray-500 text-sm sm:text-base">{{ $user->email }}</p>
+                    <span class="inline-block mt-2.5 bg-emerald-100 text-[#064e3b] px-3 py-1 rounded-full font-bold text-xs">
+                        {{ ucfirst($user->role ?? 'Pengguna') }}
+                    </span>
+                </div>
             </div>
-            <div style="border: 1px solid #e2e8f0; padding: 1rem; border-radius: 0.5rem;">
-                <div style="font-size: 0.85rem; color: #64748b;">Booking Pertemuan</div>
-                <div style="font-size: 1.5rem; font-weight: 700; color: #d97706; margin-top: 0.25rem;">{{ $totalMeetings }}</div>
+
+            <!-- Account Detail Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-gray-50/80 p-4 rounded-xl border border-gray-100">
+                    <span class="text-xs text-gray-500 block mb-1">Terdaftar Sejak</span>
+                    <strong class="text-gray-900 text-sm sm:text-base font-bold">{{ $user->created_at ? $user->created_at->format('d M Y') : '-' }}</strong>
+                </div>
+                <div class="bg-gray-50/80 p-4 rounded-xl border border-gray-100">
+                    <span class="text-xs text-gray-500 block mb-1">Total Aktivitas Konseling</span>
+                    <strong class="text-[#064e3b] text-sm sm:text-base font-bold">{{ $totalCounseling }} Kali Konsultasi</strong>
+                </div>
             </div>
         </div>
 
-        <div style="text-align: right;">
-            <a href="{{ route('history') }}" style="display: inline-block; padding: 0.6rem 1.25rem; background-color: #2563eb; color: #ffffff; border-radius: 0.375rem; text-decoration: none; font-weight: 600; font-size: 0.875rem;">
-                Lihat Seluruh Riwayat Konseling &rarr;
-            </a>
+        <!-- Activity Summary Section -->
+        <div class="bg-white rounded-2xl sm:rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8">
+            <h2 class="text-base sm:text-lg font-extrabold text-gray-900 mb-4">Ringkasan Konseling</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <div class="border border-gray-100 p-4 rounded-xl bg-white shadow-xs">
+                    <span class="text-xs sm:text-sm text-gray-500 font-medium">Konseling Chat Online</span>
+                    <div class="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">{{ $totalChat }}</div>
+                </div>
+                <div class="border border-gray-100 p-4 rounded-xl bg-white shadow-xs">
+                    <span class="text-xs sm:text-sm text-gray-500 font-medium">Booking Pertemuan</span>
+                    <div class="text-2xl sm:text-3xl font-black text-amber-600 mt-1">{{ $totalMeetings }}</div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <a href="{{ route('history') }}" 
+                    class="inline-flex items-center gap-2 px-5 py-3 bg-[#064e3b] hover:bg-[#043e2f] text-white rounded-xl font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg">
+                    <span>Lihat Seluruh Riwayat Konseling</span>
+                    <span>&rarr;</span>
+                </a>
+            </div>
         </div>
+
     </div>
 </div>
 @endsection

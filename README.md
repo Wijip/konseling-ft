@@ -1,4 +1,3 @@
-
 # Konseling FT — Sistem Konseling Fakultas Teknik UNESA
 
 Aplikasi web konseling internal untuk karyawan, mahasiswa, dan Dosen Fakultas Teknik UNESA. Menyediakan layanan konseling melalui **Chat Online** dan **Pertemuan Langsung (Tatap Muka / Zoom)** dengan dukungan fitur anonimitas, tracking, dan **notifikasi email otomatis**.
@@ -17,9 +16,10 @@ Aplikasi web konseling internal untuk karyawan, mahasiswa, dan Dosen Fakultas Te
 
 ### Sisi Admin (Dashboard)
 - **Dashboard** — Statistik real-time: total konseling, konseling aktif, total booking, booking mendatang
-- **Manajemen Konseling** — Lihat daftar sesi konseling, baca pesan, balas melalui chat (otomatis kirim email), dan **Export ke Excel**
-- **Manajemen Booking** — Review booking pertemuan, setujui/tolak dengan modal popup (otomatis kirim email), dan **Export ke Excel**
+- **Manajemen Konseling** — Lihat daftar sesi konseling, baca pesan, balas melalui chat (otomatis kirim email), dan **Export ke Excel / PDF**
+- **Manajemen Booking** — Review booking pertemuan, setujui/tolak dengan modal popup (otomatis kirim email), dan **Export ke Excel / PDF**
 - **Manajemen Jadwal** — Buat dan kelola jadwal pertemuan konselor
+- **Manajemen Konselor** — Kelola akun dan data konselor Fakultas Teknik
 
 ### Notifikasi Email
 | Event | Email Class | Deskripsi |
@@ -44,11 +44,11 @@ Aplikasi web konseling internal untuk karyawan, mahasiswa, dan Dosen Fakultas Te
 | **Framework** | Laravel 11 |
 | **PHP** | ^8.2 |
 | **Database** | MySQL |
-| **Frontend** | Blade Templates + Vanilla CSS |
+| **Frontend** | Blade Templates + Tailwind CSS (via Vite) |
 | **Interaktivitas** | Alpine.js |
 | **Email** | SMTP (Gmail / lainnya) |
 | **Testing** | PHPUnit + Laravel Enlightn |
-| **Security** | CSP Headers, Login Throttling, CSRF |
+| **Security** | CSP Headers, Login Throttling, CSRF, x-cloak FOUC prevention |
 | **Server** | PHP Artisan Serve (development) |
 
 ---
@@ -60,11 +60,12 @@ konseling-ft/
 ├── app/
 │   ├── Http/
 │   │   ├── Controllers/
-│   │   │   ├── Admin/                          # Controller admin
-│   │   │   │   ├── CounselingController.php    # Manajemen konseling + reply + email
+│   │   │   ├── Admin/                         # Controller admin
+│   │   │   │   ├── CounselingController.php    # Manajemen konseling + reply + email + export
 │   │   │   │   ├── DashboardController.php     # Statistik dashboard
-│   │   │   │   ├── MeetingBookingController.php # Manajemen booking pertemuan + email
-│   │   │   │   └── MeetingScheduleController.php # Manajemen jadwal
+│   │   │   │   ├── MeetingBookingController.php # Manajemen booking pertemuan + email + export
+│   │   │   │   ├── MeetingScheduleController.php # Manajemen jadwal
+│   │   │   │   └── CounselorController.php      # Kelola data konselor
 │   │   │   ├── Auth/
 │   │   │   │   └── LoginController.php         # Login / logout admin
 │   │   │   ├── CounselingController.php        # Public counseling flow
@@ -86,7 +87,7 @@ konseling-ft/
 ├── config/
 │   └── enlightn.php                            # Konfigurasi Laravel Enlightn
 ├── database/
-│   ├── migrations/                             # 14 migration files
+│   ├── migrations/                             # Migration files
 │   ├── factories/                              # Model factories untuk testing
 │   │   ├── CounselingSessionFactory.php
 │   │   ├── CounselingMessageFactory.php
@@ -96,18 +97,21 @@ konseling-ft/
 │   └── seeders/
 │       └── DatabaseSeeder.php                  # Seed admin, konselor, dan jadwal
 ├── public/
-│   ├── css/                                    # Stylesheet files
+│   ├── build/                                  # Hasil kompilasi Tailwind CSS & JS (Vite)
 │   └── images/                                 # Logo dan gambar hero
-├── resources/views/
-│   ├── admin/                                  # Views admin panel
-│   ├── emails/                                 # Email templates
-│   ├── errors/                                 # Custom error pages
-│   │   ├── 403.blade.php
-│   │   ├── 404.blade.php
-│   │   └── 500.blade.php
-│   ├── public/                                 # Views public (karyawan)
-│   ├── layouts/                                # Layout templates
-│   └── components/                             # Blade components
+├── resources/
+│   ├── css/                                    # Stylesheet utama (Tailwind CSS)
+│   ├── js/                                     # Entry point JavaScript & Alpine.js
+│   └── views/
+│       ├── admin/                              # Views admin panel
+│       ├── emails/                             # Email templates
+│       ├── errors/                             # Custom error pages
+│       │   ├── 403.blade.php
+│       │   ├── 404.blade.php
+│       │   └── 500.blade.php
+│       ├── public/                             # Views public (karyawan)
+│       ├── layouts/                            # Layout templates (app, public)
+│       └── components/                         # Blade components
 ├── routes/
 │   ├── web.php                                 # Semua route definitions
 │   └── console.php                             # Console commands
@@ -121,6 +125,8 @@ konseling-ft/
 │   │   └── TrackingTest.php                    # Tracking code lookup
 │   └── Unit/
 ├── composer.json
+├── package.json                                # Konfigurasi Vite & Tailwind CSS
+├── vite.config.js                              # Build tool configuration
 └── .env                                        # Environment configuration
 ```
 
@@ -136,6 +142,7 @@ Pastikan software berikut sudah terinstall di komputer Anda:
 |----------|---------------|------------|
 | **PHP** | >= 8.2 | Cek: `php -v` |
 | **Composer** | >= 2.x | Cek: `composer -V` |
+| **Node.js & NPM** | Node >= 18.x, NPM >= 9.x | Cek: `node -v` & `npm -v` |
 | **MySQL** | >= 5.7 (atau MariaDB >= 10.3) | Cek: `mysql --version` |
 | **Git** | Terbaru | Cek: `git --version` |
 
@@ -161,7 +168,13 @@ cd konseling-ft
 composer install
 ```
 
-#### 3️ Konfigurasi Environment
+#### 3️ Install Dependencies JavaScript & CSS (Node.js)
+
+```bash
+npm install
+```
+
+#### 4️ Konfigurasi Environment
 
 Copy file `.env.example` menjadi `.env`:
 
@@ -176,13 +189,13 @@ copy .env.example .env
 Copy-Item .env.example .env
 ```
 
-#### 4️ Generate Application Key
+#### 5️ Generate Application Key
 
 ```bash
 php artisan key:generate
 ```
 
-#### 5️ Buat Database MySQL
+#### 6️ Buat Database MySQL
 
 Buat database baru dengan nama `konseling_ft`. Pilih salah satu cara:
 
@@ -200,7 +213,7 @@ EXIT;
 4. Pilih collation: `utf8mb4_unicode_ci`
 5. Klik **"Create"**
 
-#### 6️ Sesuaikan Konfigurasi `.env`
+#### 7️ Sesuaikan Konfigurasi `.env`
 
 Buka file `.env` dan sesuaikan bagian database:
 
@@ -217,7 +230,7 @@ DB_PASSWORD=
 > Jika menggunakan XAMPP, biasanya `DB_USERNAME=root` dan `DB_PASSWORD=` (kosong).
 > Jika menggunakan Laragon, sama: `root` tanpa password.
 
-#### 7️ Konfigurasi Email SMTP *(Opsional)*
+#### 8️ Konfigurasi Email SMTP *(Opsional)*
 
 Untuk mengaktifkan fitur notifikasi email, edit bagian `MAIL_*` di file `.env`:
 
@@ -235,38 +248,55 @@ MAIL_FROM_NAME="${APP_NAME}"
 > [!IMPORTANT]
 > Lihat bagian **[📧 Konfigurasi Email (Gmail SMTP)](#-konfigurasi-email-gmail-smtp)** di bawah untuk panduan lengkap mendapatkan App Password Gmail.
 
-#### 8️ Jalankan Migrasi Database
+#### 9️ Jalankan Migrasi & Seeder Database
 
 ```bash
-php artisan migrate 
+php artisan migrate --seed
 ```
 
-#### 9️ Seed Data Awal
-
-```bash
-php artisan db:seed
-```
-
-Perintah ini akan membuat:
+Perintah ini akan membuat seluruh tabel beserta data awal:
 - **1 akun Admin** — `admin@unesa.ac.id` (password: `password`)
 - **4 akun Konselor** — Erlinda, Saskia, Ekin, Joko
 - **Jadwal contoh** — 2 hari ke depan (hari kerja)
 
-#### 10 Jalankan Server Development
+#### 10 Kompilasi Aset Frontend (Tailwind CSS)
+
+Sebelum menjalankan server, kompilasi aset Tailwind CSS menggunakan perintah berikut:
 
 ```bash
-php artisan serve / php artisan serve --host=0.0.0.0 --port=8000
+# Untuk Production / Testing (Satu Kali Build)
+npm run build
+
+# Untuk Development (Hot Reloading / Edit Kode Aktif)
+npm run dev
 ```
 
-Aplikasi akan berjalan di: **http://127.0.0.1:8000** 🎉
-jika menjalankan php artisan serve --host=0.0.0.0 --port=8000
-akan dapat di akses lewat perangkat lain dengan cara akses ip device yang menjalankan websitenya
-cara cek ip nya jika di windows sebagai berikut
-1. buka task manager
-2. setelah terbuka buka tab permormance
-3. kemudian buka bagian tab wifi atau ethernet.
-4. akan terdapat ipv4, akan ada format seperti 192.168.xx.xx (xx itu bisa berfariasi)
-5. kemudian buka di browser prangkat lain akses ip address tersebut dengan cara memasukkan 192.168.xx.xx:8000
+#### 11 Jalankan Server Development
+
+- **Akses Lokal Komputer Ini saja:**
+  ```bash
+  php artisan serve
+  ```
+  Aplikasi akan berjalan di: **http://127.0.0.1:8000** 🎉
+
+- **Akses dari Perangkat Lain (HP / Laptop Lain dalam 1 Jaringan Wi-Fi):**
+  ```bash
+  php artisan serve --host=0.0.0.0 --port=8000
+  ```
+
+---
+
+### 📲 Cara Mengakses Aplikasi dari Perangkat Lain (Network Sharing)
+
+Jika Anda menjalankan server dengan perintah `php artisan serve --host=0.0.0.0 --port=8000`, aplikasi dapat diakses oleh HP/laptop lain yang terhubung ke jaringan Wi-Fi yang sama.
+
+#### Cara Mengecek IP Address di Windows:
+1. Buka **Task Manager** (`Ctrl + Shift + Esc`).
+2. Setelah terbuka, buka tab **Performance**.
+3. Kemudian buka bagian tab **Wi-Fi** atau **Ethernet**.
+4. Akan terdapat **IPv4 address** (contoh format: `192.168.1.15` atau `192.168.xx.xx`).
+5. Buka browser di perangkat lain lalu ketik alamat IP tersebut diikuti dengan port `:8000`.
+   > **Contoh Akses:** `http://192.168.1.15:8000`
 
 ---
 
@@ -274,15 +304,16 @@ cara cek ip nya jika di windows sebagai berikut
 
 | Masalah | Solusi |
 |---------|--------|
-| `SQLSTATE[HY000] [1049] Unknown database` | Pastikan database `konseling_ft` sudah dibuat (Langkah 5) |
+| `SQLSTATE[HY000] [1049] Unknown database` | Pastikan database `konseling_ft` sudah dibuat (Langkah 6) |
 | `SQLSTATE[HY000] [2002] Connection refused` | Pastikan MySQL sudah berjalan (start XAMPP/Laragon) |
 | `No application encryption key has been specified` | Jalankan `php artisan key:generate` |
-| `composer install` gagal | Pastikan PHP >= 8.2 dan Composer terinstall |
-| Email tidak terkirim | Periksa konfigurasi SMTP dan pastikan App Password benar |
+| Tampilan website berantakan / CSS tidak muncul | Jalankan perintah `npm run build` terlebih dahulu |
+| `composer install` / `npm install` gagal | Pastikan versi PHP >= 8.2 dan Node.js >= 18.x terpasang |
+| Email tidak terkirim | Periksa konfigurasi SMTP di `.env` dan pastikan App Password benar |
 
 ---
 
-##  Konfigurasi Email (Gmail SMTP)
+## 📧 Konfigurasi Email (Gmail SMTP)
 
 Untuk mengirim notifikasi email melalui Gmail:
 
@@ -291,7 +322,7 @@ Untuk mengirim notifikasi email melalui Gmail:
    - Google Account → Security → 2-Step Verification → App passwords
    - Generate password baru untuk "Mail"
 3. **Edit file `.env`**, masukkan:
-   ```
+   ```env
    MAIL_MAILER=smtp
    MAIL_HOST=smtp.gmail.com
    MAIL_PORT=587
@@ -306,18 +337,18 @@ Untuk mengirim notifikasi email melalui Gmail:
 
 ---
 
-##  Akun Default
+## 🔑 Akun Default
 
 | Role | Email | Password |
 |------|-------|----------|
 | **Admin** | `admin@unesa.ac.id` | `password` |
 | **Konselor** | `budi@unesa.ac.id` | `password` |
 
->  **Penting:** Ganti password default sebelum deploy ke production!
+> 🔑 **Penting:** Ganti password default sebelum deploy ke production!
 
 ---
 
-##  Alur Aplikasi
+## 🔄 Alur Aplikasi
 
 ### Alur Karyawan
 ```
@@ -331,12 +362,13 @@ Landing Page → Pilih Mode Konseling
 Login → Dashboard
   ├── Konseling → Lihat Daftar → Baca & Balas Chat → (Email notifikasi terkirim otomatis)
   ├── Booking → Lihat Daftar → Setujui / Tolak (Modal Popup) → (Email notifikasi terkirim otomatis)
-  └── Jadwal → Lihat Daftar → Tambah Jadwal Baru
+  ├── Jadwal → Lihat Daftar → Tambah Jadwal Baru
+  └── Konselor → Lihat Daftar → Tambah / Hapus Konselor Baru
 ```
 
 ---
 
-##  Route Utama
+## 🛣️ Route Utama
 
 ### Public Routes (Karyawan)
 
@@ -369,14 +401,16 @@ Login → Dashboard
 | `/admin/counseling/{id}/reply` | POST | Kirim balasan (+ email) |
 | `/admin/bookings` | GET | Daftar booking pertemuan |
 | `/admin/bookings/{id}` | PUT | Update status booking (+ email) |
+| `/admin/bookings/export` | GET | Export data booking (Excel / PDF) |
 | `/admin/schedules` | GET | Daftar jadwal |
 | `/admin/schedules/create` | GET/POST | Tambah jadwal baru |
+| `/admin/counselors` | GET/POST/DELETE | Kelola data konselor |
 
 ---
 
-##  Manual Book — Panduan Penggunaan Website
+## 📖 Manual Book — Panduan Penggunaan Website
 
-###  Panduan untuk Karyawan (User)
+### 👤 Panduan untuk Karyawan (User)
 
 #### 1. Mengakses Website
 1. Buka browser dan akses alamat website Konseling FT.
@@ -431,7 +465,7 @@ Login → Dashboard
 
 ---
 
-### Panduan untuk Admin
+### 🛡️ Panduan untuk Admin
 
 #### 1. Login ke Dashboard Admin
 1. Akses halaman `/admin/login` atau klik **"Admin Login"** di navbar.
@@ -448,19 +482,19 @@ Login → Dashboard
 - Di bagian bawah terdapat **daftar terbaru** konseling dan booking.
 
 #### 3. Mengelola Konseling
-1. Klik menu **"Konseling"** di sidebar.
+1. Klik menu **"Konseling Chat"** di sidebar.
 2. Anda akan melihat **tabel daftar konseling** dengan informasi:
    - Identitas (Open / Anonim), Nama, Jabatan, Divisi, Topik Masalah, Status.
 3. Klik **"Detail / Reply"** pada baris yang diinginkan.
 4. Pada halaman detail, Anda bisa:
    - **Membaca pesan** dari karyawan.
    - **Membalas chat** menggunakan kolom input di bawah.
-   - **Mengubah status** konseling (Pending → In Progress → Completed).
+   - **Mengubah status** konseling (Pending → In Progress → Completed / Rejected).
    - **Menghapus sesi** jika diperlukan.
 5. Saat membalas, jika karyawan mengisi email maka **email notifikasi otomatis terkirim**.
 
 #### 4. Mengelola Booking Pertemuan
-1. Klik menu **"Booking"** di sidebar.
+1. Klik menu **"Konseling Pertemuan" → "Kelola Booking"** di sidebar.
 2. Anda akan melihat **tabel daftar booking** dengan informasi:
    - Kode Tracking, Tipe (Langsung/Online), Jadwal, Konselor, Nama, Jabatan, Divisi, Tujuan, Status.
 3. Klik **"Update"** pada baris yang ingin diproses.
@@ -472,22 +506,15 @@ Login → Dashboard
      > 💡 **Tips:** Jika tipe pertemuan adalah **Online (Zoom)**, tuliskan link Zoom di kolom catatan agar karyawan bisa melihatnya melalui tracking.
    - Klik **"💾 Simpan"** untuk menyimpan perubahan.
 5. Saat mengubah status, jika karyawan mengisi email maka **email notifikasi otomatis terkirim**.
+6. Anda juga dapat melakukan **Export Data** ke format **Excel** atau **PDF**.
 
-#### 5. Mengelola Jadwal Pertemuan
-1. Klik menu **"Jadwal"** di sidebar.
-2. Anda akan melihat **daftar jadwal** yang sudah dibuat.
-3. Untuk menambah jadwal baru, klik **"Tambah Jadwal"**:
-   - **Tanggal** — pilih tanggal pertemuan.
-   - **Waktu Mulai** & **Waktu Selesai** — tentukan rentang waktu.
-   - **Nama Konselor** — isi nama konselor yang bertugas.
-   - **Maksimal Slot** — tentukan jumlah maksimal peserta per slot.
-4. Klik **"Simpan"** untuk membuat jadwal baru.
-
-> 📝 **Catatan:** Jadwal yang sudah penuh (booked_slots ≥ max_slots) tidak akan ditampilkan di kalender karyawan.
+#### 5. Mengelola Jadwal Pertemuan & Konselor
+1. Klik menu **"Konseling Pertemuan" → "Kelola Slot Jadwal"** di sidebar untuk mengatur ketersediaan tanggal & waktu konselor.
+2. Klik menu **"Konseling Pertemuan" → "Kelola Konselor"** untuk menambah atau menghapus data akun konselor Fakultas Teknik.
 
 ---
 
-##  Database Schema
+## 🗄️ Database Schema
 
 ### Tabel Utama
 
@@ -522,7 +549,7 @@ Login → Dashboard
 
 ---
 
-##  Testing & Quality Assurance
+## 🧪 Testing & Quality Assurance
 
 ### Menjalankan Test
 
@@ -565,8 +592,6 @@ php artisan test
 | 12 | `it_shows_chat_page` | Tampilkan halaman chat untuk sesi yang ada | HTTP 200 |
 | 13 | `user_can_send_message` | Karyawan mengirim pesan chat | Pesan tersimpan di DB, sender_type = 'user' |
 | 14 | `user_cannot_send_message_to_completed_session` | Kirim pesan ke sesi yang sudah selesai | HTTP 403 (diblokir) |
-| — | `it_can_poll_messages` | Polling pesan baru via API | JSON response dengan data pesan |
-| — | `tracking_code_is_auto_generated_on_create` | Tracking code otomatis saat create session | Format kode: `CS-XXXXXX` |
 
 ---
 
@@ -585,7 +610,6 @@ php artisan test
 | 9 | `it_validates_booking_form_fields` | Submit booking tanpa field wajib | Validasi error untuk semua field |
 | 10 | `auto_complete_changes_approved_booking_to_completed` | Booking approved yang sudah lewat jadwal | Status otomatis berubah ke 'completed' |
 | 11 | `auto_complete_does_not_change_future_bookings` | Booking approved yang belum lewat jadwal | Status tetap 'approved' |
-| — | `auto_complete_does_not_change_pending_bookings` | Booking pending yang sudah lewat jadwal | Status tetap 'pending' (tidak auto-complete) |
 
 ---
 
@@ -605,8 +629,6 @@ php artisan test
 
 ### 5. AdminTest (18 tests) — Dashboard & Manajemen Admin
 
-**Dashboard & Konseling (9 tests)**
-
 | # | Test | Deskripsi | Yang Diverifikasi |
 |---|------|-----------|-------------------|
 | 1 | `it_shows_dashboard_with_stats` | Dashboard menampilkan statistik | HTTP 200, data: totalCounseling, activeCounseling, totalBookings, upcomingBookings |
@@ -618,28 +640,15 @@ php artisan test
 | 7 | `replying_auto_updates_pending_status_to_in_progress` | Reply otomatis ubah status pending → in_progress | Status auto-update |
 | 8 | `admin_cannot_reply_to_completed_session` | Reply ke sesi yang sudah selesai | HTTP 403 (diblokir) |
 | 9 | `admin_can_delete_counseling_session` | Hapus sesi konseling beserta pesannya | Data terhapus dari DB (cascade) |
-
-**Booking Pertemuan (4 tests)**
-
-| # | Test | Deskripsi | Yang Diverifikasi |
-|---|------|-----------|-------------------|
 | 10 | `it_shows_booking_list` | Daftar semua booking pertemuan | HTTP 200, data bookings tersedia |
 | 11 | `admin_can_approve_booking` | Admin menyetujui booking | Status → 'approved', catatan admin tersimpan |
 | 12 | `admin_can_reject_booking` | Admin menolak booking | Status → 'rejected', catatan admin tersimpan |
 | 13 | `booking_status_must_be_valid` | Update status booking ke nilai tidak valid | Validasi error |
-
-**Manajemen Jadwal (5 tests)**
-
-| # | Test | Deskripsi | Yang Diverifikasi |
-|---|------|-----------|-------------------|
 | 14 | `it_shows_schedule_list` | Daftar jadwal pertemuan | HTTP 200, data schedules |
 | 15 | `it_shows_schedule_create_form` | Form tambah jadwal baru | HTTP 200 |
 | 16 | `admin_can_create_new_schedule` | Buat jadwal baru lengkap | Jadwal tersimpan di DB |
 | 17 | `schedule_validates_date_not_in_past` | Buat jadwal dengan tanggal lampau | Validasi error |
 | 18 | `schedule_validates_end_time_after_start_time` | Waktu selesai sebelum waktu mulai | Validasi error |
-| — | `admin_can_toggle_schedule_availability` | Toggle ketersediaan jadwal | Status is_available berubah |
-| — | `admin_can_delete_schedule_without_bookings` | Hapus jadwal tanpa booking | Jadwal terhapus |
-| — | `admin_cannot_delete_schedule_with_bookings` | Hapus jadwal yang sudah ada booking | Gagal, jadwal tetap ada |
 
 ---
 
@@ -680,6 +689,7 @@ php artisan enlightn
 | **Login Throttling** | Max 5x percobaan login per menit |
 | **CSRF Protection** | Token CSRF di semua form |
 | **Custom Error Pages** | 403, 404, 500 (mencegah fingerprinting) |
+| **FOUC Prevention** | Penggunaan `x-cloak` pada Alpine.js untuk mencegah elemen ter-render sekejap saat pemuatan |
 | **HttpOnly Cookies** | Cookie tidak bisa diakses via JavaScript |
 
 ---
@@ -687,4 +697,7 @@ php artisan enlightn
 ## 📝 Lisensi
 
 Project ini dikembangkan untuk keperluan internal **Fakultas Teknik UNESA**.
-# konseling-ft
+```
+
+---
+

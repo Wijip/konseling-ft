@@ -3,328 +3,116 @@
 @section('title', 'Jadwal Pertemuan')
 
 @section('content')
-    <style>
-        /* Calendar-specific styles */
-        .calendar-container {
-            background: #fff;
-            border-radius: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e5e7eb;
-            overflow: hidden;
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 650px;
-        }
-
-        @media (max-width: 1024px) {
-            .calendar-grid {
-                grid-template-columns: 1fr;
-                min-height: 500px;
-            }
-        }
-
-        .calendar-left {
-            padding: 2.5rem;
-            border-right: 1px solid #f3f4f6;
-        }
-
-        @media (max-width: 1024px) {
-            .calendar-left {
-                border-right: none;
-                border-bottom: 1px solid #f3f4f6;
-            }
-        }
-
-        .calendar-right {
-            padding: 2.5rem;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .calendar-days-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            margin-bottom: 1.5rem;
-        }
-
-        .calendar-day {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 0.25rem;
-        }
-
-        .calendar-day-btn {
-            width: 2.75rem;
-            height: 2.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.2s;
-            text-decoration: none;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Tanggal Dipilih -> Hijau */
-        .calendar-day-selected {
-            background-color: #064e3b !important;
-            color: white !important;
-            font-weight: 700;
-            box-shadow: 0 4px 12px rgba(6, 78, 59, 0.3) !important;
-        }
-
-        /* Hari Ini -> Border Hijau */
-        .calendar-day-today {
-            border: 1px solid #064e3b !important;
-            color: #064e3b !important;
-            font-weight: 700;
-        }
-
-        .calendar-day-normal {
-            color: #4b5563;
-            font-weight: 500;
-        }
-
-        .calendar-day-normal:hover {
-            background-color: #f9fafb;
-        }
-
-        .calendar-day-past {
-            color: #d1d5db;
-            cursor: default;
-        }
-
-        .calendar-day-indicator {
-            position: absolute;
-            bottom: 0.25rem;
-            width: 0.25rem;
-            height: 0.25rem;
-            border-radius: 50%;
-            background-color: #10b981;
-        }
-
-        .slot-card {
-            cursor: pointer;
-            border: 2px solid #f3f4f6;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            background: white;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Hover Card -> Border Hijau */
-        .slot-card:hover {
-            border-color: #064e3b !important;
-        }
-
-        /* Card Dipilih -> Background Hijau */
-        .slot-card-selected {
-            background-color: #064e3b !important;
-            border-color: #064e3b !important;
-            color: white !important;
-            box-shadow: 0 8px 20px rgba(6, 78, 59, 0.2) !important;
-        }
-
-        .slot-time-icon {
-            width: 1.25rem;
-            height: 1.25rem;
-            margin-right: 0.5rem;
-        }
-
-        .slot-divider {
-            border-left: 2px solid rgba(0, 0, 0, 0.05);
-            padding-left: 1.5rem;
-            margin-left: 1.5rem;
-        }
-
-        .slot-card-selected .slot-divider {
-            border-left-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
-            margin-bottom: 0.75rem;
-        }
-
-        .legend-dot {
-            width: 1.25rem;
-            height: 1.25rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 700;
-        }
-
-        .calendar-action-btn {
-            display: inline-block;
-            width: 100%;
-            padding: 0.875rem 1.5rem;
-            border-radius: 0.75rem;
-            font-size: 1rem;
-            font-weight: 700;
-            text-align: center;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        /* Tombol Lanjutkan -> Hijau */
-        .calendar-action-btn-active {
-            background-color: #064e3b !important;
-            background: #064e3b !important;
-            color: #ffffff !important;
-            box-shadow: 0 4px 12px rgba(6, 78, 59, 0.2) !important;
-        }
-
-        .calendar-action-btn-active:hover {
-            background-color: #043e2f !important;
-            background: #043e2f !important;
-            box-shadow: 0 6px 16px rgba(6, 78, 59, 0.3) !important;
-        }
-
-        .calendar-action-btn-disabled {
-            background-color: #e5e7eb !important;
-            color: #9ca3af !important;
-            cursor: not-allowed;
-        }
-    </style>
-
-    <div style="padding: 2rem 0; background-color: rgba(249, 250, 251, 0.3); min-height: 100vh;">
-        <div class="container" style="max-width: 72rem; padding: 0 1rem;">
+    <div class="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-gray-50/50 min-h-[calc(100vh-160px)] flex flex-col justify-center">
+        <div class="w-full max-w-5xl mx-auto">
+            
             <!-- Back Link -->
-            <div style="margin-bottom: 1.5rem;">
+            <div class="mb-6">
                 <a href="{{ route('counseling.mode') }}"
-                    style="color: #6b7280; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 500;">
-                    <svg style="width: 1rem; height: 1rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    class="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-[#064e3b] transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                     Kembali ke Pilih Mode
                 </a>
             </div>
 
-            <div class="calendar-container">
-                <div class="calendar-grid">
-                    <!-- Left Column: Calendar -->
-                    <div class="calendar-left">
-                        <!-- Header -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem;">
-                            <h2 style="font-size: 1.875rem; font-weight: 700; color: #111827;">
-                                {{ $startDate->translatedFormat('F Y') }}
-                            </h2>
-                            <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-                                <a href="{{ route('meeting.calendar', ['month' => $month == 1 ? 12 : $month - 1, 'year' => $month == 1 ? $year - 1 : $year]) }}"
-                                    style="width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 1px solid #f3f4f6; display: flex; align-items: center; justify-content: center; transition: background-color 0.2s; color: #6b7280; text-decoration: none;">
-                                    <svg style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M5 15l7-7 7 7" />
-                                    </svg>
-                                </a>
-                                <a href="{{ route('meeting.calendar', ['month' => $month == 12 ? 1 : $month + 1, 'year' => $month == 12 ? $year + 1 : $year]) }}"
-                                    style="width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 1px solid #f3f4f6; display: flex; align-items: center; justify-content: center; transition: background-color 0.2s; color: #6b7280; text-decoration: none;">
-                                    <svg style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Calendar Grid -->
-                        <div class="calendar-days-grid">
-                            <!-- Day Headers -->
-                            @foreach(['SEN', 'SEL', 'RAB', 'KAM', 'JUM', 'SAB', 'MIN'] as $day)
-                                <div style="text-align: center; font-size: 0.75rem; font-weight: 700; color: #9ca3af; padding: 1rem 0;">
-                                    {{ $day }}
-                                </div>
-                            @endforeach
-
-                            <!-- Empty Cells -->
-                            @for($i = 1; $i < $startDate->dayOfWeekIso; $i++)
-                                <div style="aspect-ratio: 1; display: flex; align-items: center; justify-content: center; color: #e5e7eb; font-size: 0.875rem; font-weight: 500;">
-                                    {{ $startDate->copy()->subDays($startDate->dayOfWeekIso - $i)->day }}
-                                </div>
-                            @endfor
-
-                            <!-- Days -->
-                            @for($day = 1; $day <= $startDate->daysInMonth; $day++)
-                                @php
-                                    $date = $startDate->copy()->day($day);
-                                    $dateStr = $date->format('Y-m-d');
-                                    $isToday = $date->isToday();
-                                    $isSelected = $selectedDate->format('Y-m-d') === $dateStr;
-                                    $hasSlots = $slots->has($dateStr);
-                                    $isPast = $date->isPast() && !$isToday;
-                                @endphp
-
-                                <div class="calendar-day">
-                                    <a href="{{ !$isPast ? route('meeting.calendar', ['month' => $month, 'year' => $year, 'date' => $dateStr]) : '#' }}"
-                                        class="calendar-day-btn {{ $isSelected ? 'calendar-day-selected' : ($isToday ? 'calendar-day-today' : ($isPast ? 'calendar-day-past' : 'calendar-day-normal')) }}">
-                                        <span style="font-size: 1rem;">{{ $day }}</span>
-
-                                        @if($hasSlots && !$isSelected)
-                                            <div class="calendar-day-indicator"></div>
-                                        @endif
+            <!-- Main Calendar Card Container -->
+            <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[580px]">
+                    
+                    <!-- Left Column: Calendar Grid -->
+                    <div class="lg:col-span-7 p-5 sm:p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <!-- Header Nav Month -->
+                            <div class="flex items-center justify-between mb-6 sm:mb-8">
+                                <h2 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-900">
+                                    {{ $startDate->translatedFormat('F Y') }}
+                                </h2>
+                                <div class="flex items-center gap-1.5 shrink-0">
+                                    <a href="{{ route('meeting.calendar', ['month' => $month == 1 ? 12 : $month - 1, 'year' => $month == 1 ? $year - 1 : $year]) }}"
+                                        class="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                                        aria-label="Bulan Sebelumnya">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                        </svg>
+                                    </a>
+                                    <a href="{{ route('meeting.calendar', ['month' => $month == 12 ? 1 : $month + 1, 'year' => $month == 12 ? $year + 1 : $year]) }}"
+                                        class="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                                        aria-label="Bulan Selanjutnya">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                        </svg>
                                     </a>
                                 </div>
-                            @endfor
+                            </div>
 
-                            <!-- Empty Cells (Next Month) -->
-                            @php $remaining = 7 - (($startDate->dayOfWeekIso - 1 + $startDate->daysInMonth) % 7); @endphp
-                            @if($remaining < 7)
-                                @for($i = 1; $i <= $remaining; $i++)
-                                    <div style="aspect-ratio: 1; display: flex; align-items: center; justify-content: center; color: #e5e7eb; font-size: 0.875rem; font-weight: 500;">
-                                        {{ $i }}
+                            <!-- Calendar Grid -->
+                            <div class="grid grid-cols-7 gap-1 text-center mb-4">
+                                <!-- Day Headers -->
+                                @foreach(['SEN', 'SEL', 'RAB', 'KAM', 'JUM', 'SAB', 'MIN'] as $day)
+                                    <div class="text-[11px] sm:text-xs font-bold text-gray-400 py-2">
+                                        {{ $day }}
+                                    </div>
+                                @endforeach
+
+                                <!-- Empty Cells Previous Month -->
+                                @for($i = 1; $i < $startDate->dayOfWeekIso; $i++)
+                                    <div class="aspect-square flex items-center justify-center text-gray-300 text-xs sm:text-sm font-medium">
+                                        {{ $startDate->copy()->subDays($startDate->dayOfWeekIso - $i)->day }}
                                     </div>
                                 @endfor
-                            @endif
+
+                                <!-- Days -->
+                                @for($day = 1; $day <= $startDate->daysInMonth; $day++)
+                                    @php
+                                        $date = $startDate->copy()->day($day);
+                                        $dateStr = $date->format('Y-m-d');
+                                        $isToday = $date->isToday();
+                                        $isSelected = $selectedDate->format('Y-m-d') === $dateStr;
+                                        $hasSlots = $slots->has($dateStr);
+                                        $isPast = $date->isPast() && !$isToday;
+                                    @endphp
+
+                                    <div class="aspect-square flex items-center justify-center p-0.5 relative">
+                                        <a href="{{ !$isPast ? route('meeting.calendar', ['month' => $month, 'year' => $year, 'date' => $dateStr]) : '#' }}"
+                                            class="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium transition-all relative z-10
+                                            {{ $isSelected ? 'bg-[#064e3b] text-white font-bold shadow-md shadow-[#064e3b]/30' : ($isToday ? 'border-2 border-[#064e3b] text-[#064e3b] font-bold' : ($isPast ? 'text-gray-300 cursor-default' : 'text-gray-700 hover:bg-gray-100')) }}">
+                                            <span>{{ $day }}</span>
+
+                                            @if($hasSlots && !$isSelected)
+                                                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full absolute bottom-1"></span>
+                                            @endif
+                                        </a>
+                                    </div>
+                                @endfor
+
+                                <!-- Empty Cells Next Month -->
+                                @php $remaining = 7 - (($startDate->dayOfWeekIso - 1 + $startDate->daysInMonth) % 7); @endphp
+                                @if($remaining < 7)
+                                    @for($i = 1; $i <= $remaining; $i++)
+                                        <div class="aspect-square flex items-center justify-center text-gray-300 text-xs sm:text-sm font-medium">
+                                            {{ $i }}
+                                        </div>
+                                    @endfor
+                                @endif
+                            </div>
                         </div>
 
                         <!-- Legend -->
-                        <div style="margin-top: 3rem; padding-left: 0.5rem;">
-                            <div class="legend-item">
-                                <span class="legend-dot" style="background: #064e3b; color: #ffffff;">30</span>
+                        <div class="mt-6 pt-4 border-t border-gray-100 flex flex-wrap items-center gap-4 sm:gap-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                            <div class="flex items-center gap-2">
+                                <span class="w-5 h-5 rounded-full bg-[#064e3b] text-white flex items-center justify-center text-[10px] font-bold">30</span>
                                 Dipilih
                             </div>
-                            <div class="legend-item">
-                                <span class="legend-dot" style="background: #fff; border: 2px solid #064e3b; color: #064e3b;">30</span>
+                            <div class="flex items-center gap-2">
+                                <span class="w-5 h-5 rounded-full bg-white border-2 border-[#064e3b] text-[#064e3b] flex items-center justify-center text-[10px] font-bold">30</span>
                                 Hari Ini
                             </div>
-                            <div class="legend-item">
-                                <span class="legend-dot" style="background: #fff; position: relative;">
-                                    <span style="font-size: 10px; font-weight: 700; color: #9ca3af;">30</span>
-                                    <span style="position: absolute; bottom: 0; width: 0.25rem; height: 0.25rem; border-radius: 50%; background: #10b981;"></span>
+                            <div class="flex items-center gap-2">
+                                <span class="w-5 h-5 rounded-full bg-white border border-gray-200 text-gray-400 flex items-center justify-center text-[10px] font-bold relative">
+                                    30
+                                    <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full absolute bottom-0.5"></span>
                                 </span>
                                 Tersedia
                             </div>
@@ -332,98 +120,97 @@
                     </div>
 
                     <!-- Right Column: Slots -->
-                    <div class="calendar-right" x-data="{ selectedSlot: null }">
-                        <h2 style="font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 0.25rem;">Pilih Jam & Konselor</h2>
-                        <p style="color: #6b7280; margin-bottom: 2.5rem; font-size: 1.125rem;">
-                            {{ $selectedDate->translatedFormat('l, d F Y') }}
-                        </p>
+                    <div class="lg:col-span-5 p-5 sm:p-8 lg:p-10 flex flex-col justify-between bg-white" x-data="{ selectedSlot: null }">
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 mb-1">Pilih Jam & Konselor</h2>
+                            <p class="text-gray-500 text-sm sm:text-base mb-6">
+                                {{ $selectedDate->translatedFormat('l, d F Y') }}
+                            </p>
 
-                        <div style="flex: 1; overflow-y: auto; padding-right: 0.25rem;" class="no-scrollbar">
-                            @forelse($selectedDateSlots as $slot)
-                                <div @click="selectedSlot = {{ $slot->id }}" class="slot-card"
-                                    :class="selectedSlot === {{ $slot->id }} ? 'slot-card-selected' : ''">
+                            <div class="max-h-[360px] overflow-y-auto pr-1 space-y-3">
+                                @forelse($selectedDateSlots as $slot)
+                                    <div @click="selectedSlot = {{ $slot->id }}"
+                                        class="cursor-pointer border-2 rounded-2xl p-4 transition-all flex items-center justify-between gap-3 bg-white hover:border-[#064e3b]"
+                                        :class="selectedSlot === {{ $slot->id }} ? 'bg-[#064e3b] border-[#064e3b] text-white shadow-lg shadow-[#064e3b]/20' : 'border-gray-100 text-gray-800'">
 
-                                    {{-- Kolom Kiri: Jam dan Status --}}
-                                    <div style="flex: 1;">
-                                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
-                                            <svg class="slot-time-icon"
-                                                :style="selectedSlot === {{ $slot->id }} ? 'color: white' : 'color: #9ca3af'"
-                                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                            <span style="font-size: 1.125rem; font-weight: 800;">
-                                                {{ substr($slot->start_time, 0, 5) }} - {{ substr($slot->end_time, 0, 5) }}
+                                        {{-- Jam dan Status --}}
+                                        <div class="flex flex-col shrink-0">
+                                            <div class="flex items-center gap-1.5">
+                                                <svg class="w-4 h-4 shrink-0" :class="selectedSlot === {{ $slot->id }} ? 'text-white' : 'text-gray-400'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <span class="text-sm sm:text-base font-extrabold whitespace-nowrap">
+                                                    {{ substr($slot->start_time, 0, 5) }} - {{ substr($slot->end_time, 0, 5) }}
+                                                </span>
+                                            </div>
+                                            <span class="text-[11px] font-semibold pl-5 opacity-80">
+                                                Tersedia
                                             </span>
                                         </div>
-                                        <div style="font-size: 0.875rem; font-weight: 500; opacity: 0.8; padding-left: 1.75rem;">
-                                            Tersedia
-                                        </div>
-                                    </div>
 
-                                    {{-- Kolom Kanan: Nama Konselor & Rumpun --}}
-                                    <div class="slot-divider" style="display: flex; align-items: center; gap: 0.75rem;">
-                                        {{-- Ikon User --}}
-                                        <div style="width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"
-                                            :style="selectedSlot === {{ $slot->id }} ? 'background: rgba(255,255,255,0.2)' : 'background: #f9fafb'">
-                                            <svg style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                            </svg>
-                                        </div>
-                                        
-                                        {{-- Teks Nama dan Rumpun --}}
-                                        <div style="display: flex; flex-direction: column; justify-content: center;">
-                                            {{-- Nama Konselor --}}
-                                            <div style="font-weight: 800; font-size: 1rem; line-height: 1.2; text-transform: uppercase;">
-                                                {{ $slot->konselor_name ?? ($slot->konselor->name ?? 'Tim HC') }}
+                                        {{-- Pembatas / Divider --}}
+                                        <div class="h-8 w-[1px] shrink-0" :class="selectedSlot === {{ $slot->id }} ? 'bg-white/20' : 'bg-gray-200'"></div>
+
+                                        {{-- Nama Konselor & Rumpun --}}
+                                        <div class="flex items-center gap-2.5 min-w-0 flex-1">
+                                            <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+                                                :class="selectedSlot === {{ $slot->id }} ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-600'">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                </svg>
                                             </div>
                                             
-                                            {{-- Rumpun (Muncul di bawah nama) --}}
-                                            @php
-                                                $rumpun = $slot->rumpun ?? ($slot->konselor->rumpun ?? null);
-                                            @endphp
-
-                                            @if($rumpun)
-                                                <div style="font-size: 0.85rem; font-weight: 600; opacity: 0.9; margin-top: 0.25rem; letter-spacing: 0.025em;">
-                                                    {{ $rumpun }}
+                                            <div class="flex flex-col min-w-0">
+                                                <div class="font-extrabold text-xs sm:text-sm uppercase leading-tight truncate">
+                                                    {{ $slot->konselor_name ?? ($slot->konselor->name ?? 'Tim HC') }}
                                                 </div>
-                                            @endif
+                                                
+                                                @php
+                                                    $rumpun = $slot->rumpun ?? ($slot->konselor->rumpun ?? null);
+                                                @endphp
+
+                                                @if($rumpun)
+                                                    <div class="text-[11px] font-medium opacity-80 truncate">
+                                                        {{ $rumpun }}
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
+
                                     </div>
-                                    
-                                </div>
-                            @empty
-                                <div style="text-align: center; padding: 5rem 0; background: #f9fafb; border-radius: 1.5rem;">
-                                    <div style="width: 4rem; height: 4rem; background: #e5e7eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
-                                        <svg style="width: 2rem; height: 2rem; color: #9ca3af;" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
+                                @empty
+                                    <div class="text-center py-12 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                                            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </div>
+                                        <h3 class="text-sm font-bold text-gray-700">Tidak ada slot</h3>
+                                        <p class="text-xs text-gray-400 mt-1">
+                                            Pilih tanggal lain yang tersedia.
+                                        </p>
                                     </div>
-                                    <h3 style="font-size: 1.125rem; font-weight: 700; color: #6b7280;">Tidak ada slot</h3>
-                                    <p style="font-size: 0.875rem; color: #9ca3af; margin-top: 0.25rem;">
-                                        Pilih tanggal lain yang tersedia.
-                                    </p>
-                                </div>
-                            @endforelse
+                                @endforelse
+                            </div>
                         </div>
 
-                        <div style="margin-top: 2rem; padding-top: 1.5rem; text-align: center;">
+                        <!-- Action Button -->
+                        <div class="mt-6 pt-4 border-t border-gray-100">
                             <a x-show="selectedSlot" :href="`/meeting/book/${selectedSlot}`"
-                                class="calendar-action-btn calendar-action-btn-active"
-                                style="background-color: #064e3b !important; background: #064e3b !important; color: #ffffff !important;">
+                                class="w-full inline-block bg-[#064e3b] hover:bg-[#04382a] text-white font-bold py-3.5 px-6 rounded-xl shadow-md hover:shadow-lg transition-all text-center text-sm sm:text-base">
                                 Lanjutkan
                             </a>
 
-                            <div x-show="!selectedSlot" class="calendar-action-btn calendar-action-btn-disabled">
+                            <div x-show="!selectedSlot"
+                                class="w-full bg-gray-200 text-gray-400 font-bold py-3.5 px-6 rounded-xl text-center text-sm sm:text-base cursor-not-allowed">
                                 Lanjutkan
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
+
         </div>
     </div>
 @endsection

@@ -3,61 +3,61 @@
 @section('title', 'Kelola Data Konselor')
 
 @section('content')
-    <div class="card">
-        <div class="flex justify-between items-center mb-6" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+    <div class="bg-white rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm p-5 sm:p-7">
+        
+        <!-- Header & Action Button -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-5 border-b border-slate-100">
             <div>
-                <h3 class="font-bold text-lg" style="font-weight: 700; font-size: 1.125rem; color: #111827; margin: 0;">Daftar Konselor</h3>
-                <p class="text-muted text-sm" style="color: #6B7280; font-size: 0.875rem; margin: 0.25rem 0 0 0;">Kelola akun konselor Fakultas Teknik.</p>
+                <h3 class="font-extrabold text-lg sm:text-xl text-slate-900">Daftar Konselor</h3>
+                <p class="text-slate-500 text-xs sm:text-sm mt-0.5">Kelola akun konselor Fakultas Teknik.</p>
             </div>
             <div>
-                {{-- Tombol Tambah Konselor --}}
                 <a href="{{ route('admin.counselors.create') }}" 
-                   class="btn"
-                   style="background-color: #064e3b !important; color: #ffffff !important; padding: 0.625rem 1.25rem; border-radius: 0.75rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(6, 78, 59, 0.2); border: none; transition: all 0.2s ease;"
-                   onmouseover="this.style.backgroundColor='#043e2f'"
-                   onmouseout="this.style.backgroundColor='#064e3b'">
-                    + Tambah Konselor
+                   class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#064e3b] hover:bg-[#043e2f] text-white rounded-xl text-xs sm:text-sm font-bold transition-all shadow-md hover:shadow-lg">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    <span>Tambah Konselor</span>
                 </a>
             </div>
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse" style="width: 100%; border-collapse: collapse; text-align: left;">
+        <!-- Table Container -->
+        <div class="overflow-x-auto rounded-xl border border-slate-100">
+            <table class="w-full text-left text-xs sm:text-sm border-collapse">
                 <thead>
-                    <tr style="border-bottom: 2px solid #E5E7EB;">
-                        <th class="p-3 text-sm font-semibold text-gray-600" style="padding: 0.75rem; font-size: 0.875rem; font-weight: 600; color: #4B5563;">No</th>
-                        <th class="p-3 text-sm font-semibold text-gray-600" style="padding: 0.75rem; font-size: 0.875rem; font-weight: 600; color: #4B5563;">Nama Konselor</th>
-                        <th class="p-3 text-sm font-semibold text-gray-600" style="padding: 0.75rem; font-size: 0.875rem; font-weight: 600; color: #4B5563;">Email</th>
-                        <th class="p-3 text-sm font-semibold text-gray-600" style="padding: 0.75rem; font-size: 0.875rem; font-weight: 600; color: #4B5563;">Tanggal Terdaftar</th>
-                        <th class="p-3 text-sm font-semibold text-gray-600" style="padding: 0.75rem; font-size: 0.875rem; font-weight: 600; color: #4B5563;">Aksi</th>
+                    <tr class="bg-slate-50 text-slate-500 font-bold uppercase text-[11px] tracking-wider border-b border-slate-100">
+                        <th class="py-3.5 px-4 whitespace-nowrap text-center w-12">No</th>
+                        <th class="py-3.5 px-4 whitespace-nowrap">Nama Konselor</th>
+                        <th class="py-3.5 px-4 whitespace-nowrap">Email</th>
+                        <th class="py-3.5 px-4 whitespace-nowrap">Tanggal Terdaftar</th>
+                        <th class="py-3.5 px-4 whitespace-nowrap text-center">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="divide-y divide-slate-100 text-slate-700">
                     @forelse($counselors as $index => $counselor)
-                        <tr style="border-bottom: 1px solid #F3F4F6;">
-                            <td style="padding: 0.75rem; font-size: 0.875rem; color: #374151;">
+                        <tr class="hover:bg-slate-50/70 transition-colors">
+                            <td class="py-3.5 px-4 whitespace-nowrap text-center text-slate-400 font-medium">
                                 {{ $counselors->firstItem() + $index }}
                             </td>
-                            <td style="padding: 0.75rem; font-size: 0.875rem; font-weight: 600; color: #111827;">
+                            <td class="py-3.5 px-4 whitespace-nowrap font-bold text-slate-900">
                                 {{ $counselor->name }}
                             </td>
-                            <td style="padding: 0.75rem; font-size: 0.875rem; color: #4B5563;">
+                            <td class="py-3.5 px-4 whitespace-nowrap text-xs text-slate-600 font-mono">
                                 {{ $counselor->email }}
                             </td>
-                            <td style="padding: 0.75rem; font-size: 0.875rem; color: #6B7280;">
+                            <td class="py-3.5 px-4 whitespace-nowrap text-xs text-slate-500">
                                 {{ $counselor->created_at->format('d M Y') }}
                             </td>
-                            <td style="padding: 0.75rem;">
+                            <td class="py-3.5 px-4 whitespace-nowrap text-center">
                                 <form action="{{ route('admin.counselors.destroy', $counselor->id) }}" method="POST"
-                                    onsubmit="return confirm('Yakin hapus konselor ini?');">
+                                    onsubmit="return confirm('Yakin hapus konselor ini?');" class="inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-danger hover:text-red-700"
-                                        style="background: none; border: none; cursor: pointer; color: #DC2626;"
+                                    <button type="submit" 
+                                        class="p-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg transition-colors cursor-pointer border-0"
                                         title="Hapus Konselor">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <polyline points="3 6 5 6 21 6"></polyline>
                                             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                                         </svg>
@@ -67,7 +67,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="p-6 text-center text-muted" style="padding: 1.5rem; text-align: center; color: #9CA3AF;">
+                            <td colspan="5" class="text-center py-12 text-slate-400 text-sm">
                                 Belum ada data konselor.
                             </td>
                         </tr>
@@ -76,7 +76,8 @@
             </table>
         </div>
 
-        <div class="mt-4" style="margin-top: 1rem;">
+        <!-- Pagination -->
+        <div class="mt-5">
             {{ $counselors->links() }}
         </div>
     </div>

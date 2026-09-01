@@ -11,204 +11,74 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: #f8fafc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 1.5rem;
-        }
-
-        .register-card {
-            background: #ffffff;
-            width: 100%;
-            max-width: 440px;
-            border-radius: 1.5rem;
-            border: 1px solid #f1f5f9;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            padding: 2.5rem 2rem;
-        }
-
-        .brand-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .brand-logo {
-            height: 3.5rem;
-            width: auto;
-            margin-bottom: 1rem;
-        }
-
-        .brand-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #064e3b;
-            margin-bottom: 0.25rem;
-        }
-
-        .brand-subtitle {
-            font-size: 0.875rem;
-            color: #64748b;
-        }
-
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: #334155;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.75rem;
-            font-size: 0.875rem;
-            color: #0f172a;
-            outline: none;
-            transition: all 0.2s;
-        }
-
-        .form-input:focus {
-            border-color: #064e3b;
-            box-shadow: 0 0 0 3px rgba(6, 78, 59, 0.15);
-        }
-
-        .form-error {
-            color: #dc2626;
-            font-size: 0.75rem;
-            margin-top: 0.375rem;
-            font-weight: 500;
-        }
-
-        .btn-submit {
-            width: 100%;
-            background-color: #064e3b;
-            color: #ffffff;
-            border: none;
-            padding: 0.875rem;
-            border-radius: 0.75rem;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(6, 78, 59, 0.2);
-            margin-top: 0.5rem;
-        }
-
-        .btn-submit:hover {
-            background-color: #043e2f;
-            box-shadow: 0 6px 16px rgba(6, 78, 59, 0.3);
-        }
-
-        .footer-link {
-            text-align: center;
-            margin-top: 1.75rem;
-            font-size: 0.875rem;
-            color: #64748b;
-        }
-
-        .footer-link a {
-            color: #064e3b;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .footer-link a:hover {
-            text-decoration: underline;
-        }
-
-        .toggle-password-btn {
-            position: absolute;
-            right: 0.75rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.25rem;
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
-    <div class="register-card">
+<body class="bg-slate-50 font-sans min-h-screen flex items-center justify-center p-4 sm:p-6 antialiased text-slate-800">
+    <div class="w-full max-w-md bg-white rounded-3xl border border-slate-100 shadow-xl p-6 sm:p-10">
         <!-- Logo & Header -->
-        <div class="brand-header">
-            <img src="{{ asset('images/State_University_of_Surabaya_logo.png') }}" alt="UNESA Logo" class="brand-logo">
-            <h1 class="brand-title">Daftar Akun</h1>
-            <p class="brand-subtitle">Konseling Fakultas Teknik UNESA</p>
+        <div class="text-center mb-8">
+            <img src="{{ asset('images/State_University_of_Surabaya_logo.png') }}" alt="UNESA Logo" class="h-14 w-auto mx-auto mb-4">
+            <h1 class="text-2xl font-extrabold text-[#064e3b] mb-1">Daftar Akun</h1>
+            <p class="text-sm text-slate-500">Konseling Fakultas Teknik UNESA</p>
         </div>
 
         <!-- Form Registrasi -->
-        <form action="{{ route('register.store') }}" method="POST">
+        <form action="{{ route('register.store') }}" method="POST" class="space-y-5">
             @csrf
 
             <!-- Nama Lengkap -->
-            <div class="form-group">
-                <label for="name" class="form-label">Nama Lengkap</label>
+            <div>
+                <label for="name" class="block text-sm font-semibold text-slate-700 mb-2">Nama Lengkap</label>
                 <input type="text" name="name" id="name" value="{{ old('name') }}"
-                    class="form-input" placeholder="Masukkan nama lengkap" required autofocus>
+                    class="w-full px-4 py-3 border rounded-xl text-sm text-slate-900 focus:outline-none focus:border-[#064e3b] focus:ring-2 focus:ring-[#064e3b]/20 transition-all placeholder-slate-400 @error('name') border-red-500 @else border-slate-300 @enderror" 
+                    placeholder="Masukkan nama lengkap" required autofocus>
                 @error('name')
-                    <p class="form-error">{{ $message }}</p>
+                    <p class="text-red-600 text-xs mt-1.5 font-medium">{{ $message }}</p>
                 @enderror
             </div>
 
             <!-- Email -->
-            <div class="form-group">
-                <label for="email" class="form-label">Alamat Email</label>
+            <div>
+                <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">Alamat Email</label>
                 <input type="email" name="email" id="email" value="{{ old('email') }}"
-                    class="form-input" placeholder="nama@unesa.ac.id" required>
+                    class="w-full px-4 py-3 border rounded-xl text-sm text-slate-900 focus:outline-none focus:border-[#064e3b] focus:ring-2 focus:ring-[#064e3b]/20 transition-all placeholder-slate-400 @error('email') border-red-500 @else border-slate-300 @enderror" 
+                    placeholder="nama@unesa.ac.id" required>
                 @error('email')
-                    <p class="form-error">{{ $message }}</p>
+                    <p class="text-red-600 text-xs mt-1.5 font-medium">{{ $message }}</p>
                 @enderror
             </div>
 
             <!-- Password -->
-            <div class="form-group">
-                <label for="password" class="form-label">Password</label>
-                <div style="position: relative;">
+            <div>
+                <label for="password" class="block text-sm font-semibold text-slate-700 mb-2">Password</label>
+                <div class="relative">
                     <input type="password" name="password" id="password"
-                        class="form-input" style="padding-right: 2.75rem;" placeholder="Minimal 8 karakter" required>
-                    <button type="button" class="toggle-password-btn" data-target="password" aria-label="Tampilkan atau sembunyikan password">
-                        <svg class="eye-icon" style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="w-full px-4 py-3 pr-11 border rounded-xl text-sm text-slate-900 focus:outline-none focus:border-[#064e3b] focus:ring-2 focus:ring-[#064e3b]/20 transition-all placeholder-slate-400 @error('password') border-red-500 @else border-slate-300 @enderror" 
+                        placeholder="Minimal 8 karakter" required>
+                    <button type="button" class="toggle-password-btn absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer flex items-center justify-center transition-colors" 
+                        data-target="password" aria-label="Tampilkan atau sembunyikan password">
+                        <svg class="eye-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
                     </button>
                 </div>
                 @error('password')
-                    <p class="form-error">{{ $message }}</p>
+                    <p class="text-red-600 text-xs mt-1.5 font-medium">{{ $message }}</p>
                 @enderror
             </div>
 
             <!-- Konfirmasi Password -->
-            <div class="form-group">
-                <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                <div style="position: relative;">
+            <div>
+                <label for="password_confirmation" class="block text-sm font-semibold text-slate-700 mb-2">Konfirmasi Password</label>
+                <div class="relative">
                     <input type="password" name="password_confirmation" id="password_confirmation"
-                        class="form-input" style="padding-right: 2.75rem;" placeholder="Ulangi password" required>
-                    <button type="button" class="toggle-password-btn" data-target="password_confirmation" aria-label="Tampilkan atau sembunyikan konfirmasi password">
-                        <svg class="eye-icon" style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="w-full px-4 py-3 pr-11 border border-slate-300 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-[#064e3b] focus:ring-2 focus:ring-[#064e3b]/20 transition-all placeholder-slate-400" 
+                        placeholder="Ulangi password" required>
+                    <button type="button" class="toggle-password-btn absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer flex items-center justify-center transition-colors" 
+                        data-target="password_confirmation" aria-label="Tampilkan atau sembunyikan konfirmasi password">
+                        <svg class="eye-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
@@ -217,14 +87,14 @@
             </div>
 
             <!-- Tombol Register -->
-            <button type="submit" class="btn-submit">
+            <button type="submit" class="w-full bg-[#064e3b] hover:bg-[#043e2f] text-white font-bold py-3.5 px-6 rounded-xl shadow-md hover:shadow-lg transition-all text-sm mt-2 cursor-pointer">
                 Daftar Sekarang
             </button>
         </form>
 
         <!-- Footer Link ke Login -->
-        <div class="footer-link">
-            Sudah memiliki akun? <a href="{{ route('login') }}">Masuk di sini</a>
+        <div class="text-center mt-7 text-sm text-slate-500">
+            Sudah memiliki akun? <a href="{{ route('login') }}" class="text-[#064e3b] font-bold hover:underline transition-all">Masuk di sini</a>
         </div>
     </div>
 

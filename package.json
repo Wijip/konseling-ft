@@ -1,0 +1,32 @@
+{
+  "name": "konseling-ft",
+  "version": "1.0.0",
+  "description": "Aplikasi web konseling internal untuk karyawan, mahasiswa, dan Dosen Fakultas Teknik UNESA. Menyediakan layanan konseling melalui **Chat Online** dan **Pertemuan Langsung (Tatap Muka / Zoom)** dengan dukungan fitur anonimitas, tracking, dan **notifikasi email otomatis**.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ammanda23003/konseling-ft.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ammanda23003/konseling-ft/issues"
+  },
+  "homepage": "https://github.com/ammanda23003/konseling-ft#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.5.4",
+    "laravel-vite-plugin": "^3.2.0",
+    "postcss": "^8.5.26",
+    "tailwindcss": "^3.4.19",
+    "vite": "^8.2.2"
+  }
+}

@@ -6,97 +6,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Layanan konseling fakultas teknik') - UNESA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/mobile.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @stack('styles')
 </head>
 
-<body>
+<body class="bg-gray-50 font-['Inter'] text-gray-900 antialiased min-h-screen flex flex-col justify-between">
     <!-- Navbar -->
-    <nav>
-        <div class="nav-container">
-            <div class="nav-content">
-                <!-- Left: Logos -->
-                <div class="nav-logos">
-                    <div>
-                        <img src="{{ asset('images/State_University_of_Surabaya_logo.png') }}" alt="UNESA"
-                            style="height: 3.2rem; width:auto; object-fit: contain;">
-                    </div>
-                    <div class="nav-divider"></div>
-                    <div class="nav-title">
-                        <div class="nav-text">
-                            <strong>Konseling Fakultas Teknik</strong>
-                            <small>UNESA</small>
-                        </div>
+    <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Left: Logos & Title -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <a href="{{ route('home') }}" class="flex-shrink-0">
+                        <img src="{{ asset('images/State_University_of_Surabaya_logo.png') }}" alt="UNESA" class="h-10 sm:h-12 w-auto object-contain">
+                    </a>
+                    <div class="h-8 w-[1px] bg-gray-200 hidden sm:block"></div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-gray-900 text-xs sm:text-sm leading-tight">Konseling Fakultas Teknik</span>
+                        <span class="text-[10px] sm:text-xs text-gray-500 font-medium tracking-wider">UNESA</span>
                     </div>
                 </div>
 
                 <!-- Center: Desktop Navigation -->
-                <div class="nav-menu">
-                    <a href="{{ route('home') }}">Beranda</a>
-                    <a href="{{ route('tracking.index') }}">Cek Status</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="{{ route('home') }}" class="text-sm font-semibold text-gray-700 hover:text-[#064e3b] transition-colors">Beranda</a>
+                    <a href="{{ route('tracking.index') }}" class="text-sm font-semibold text-gray-700 hover:text-[#064e3b] transition-colors">Cek Status</a>
                     @auth
                         @if(!in_array(Auth::user()->role, ['admin', 'konselor']))
-                            <a href="{{ route('history') }}">Riwayat Konseling</a>
+                            <a href="{{ route('history') }}" class="text-sm font-semibold text-gray-700 hover:text-[#064e3b] transition-colors">Riwayat Konseling</a>
                         @endif
                     @endauth
                 </div>
 
                 <!-- Right: Actions (User / Admin / Guest) -->
-                <div class="nav-actions">
+                <div class="hidden md:flex items-center space-x-4">
                     @auth
-                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div class="flex items-center gap-3">
                             @if(in_array(Auth::user()->role, ['admin', 'konselor']))
-                                <!-- Tampilan jika Login sebagai Admin/Konselor -->
-                                <a href="{{ route('admin.dashboard') }}" class="btn-login">Dashboard Admin</a>
+                                <a href="{{ route('admin.dashboard') }}" class="px-5 py-2 border border-[#064e3b] text-[#064e3b] hover:bg-[#064e3b] hover:text-white rounded-full text-sm font-semibold transition-all">Dashboard Admin</a>
                             @else
-                                <!-- Tampilan jika Login sebagai User biasa (Mengarah ke Halaman Profil) -->
-                                <a href="{{ route('profile') }}" 
-                                   style="font-weight: 600; color: #1e293b; font-size: 0.875rem; text-decoration: none; transition: color 0.2s;"
-                                   onmouseover="this.style.color='#2563eb';"
-                                   onmouseout="this.style.color='#1e293b';">
+                                <a href="{{ route('profile') }}" class="text-sm font-semibold text-gray-800 hover:text-[#064e3b] transition-colors flex items-center gap-1">
                                     👤 {{ Auth::user()->name }}
                                 </a>
                             @endif
 
-                            <!-- Tombol Logout -->
-                            <form action="{{ route('logout') }}" method="POST" style="margin: 0; display: inline;">
+                            <form action="{{ route('logout') }}" method="POST" class="inline">
                                 @csrf
-                                <button type="submit" 
-                                    style="padding: 0.4rem 1rem; border: 1px solid #ef4444; background-color: transparent; color: #ef4444; border-radius: 9999px; font-weight: 600; font-size: 0.875rem; cursor: pointer; transition: all 0.2s;"
-                                    onmouseover="this.style.backgroundColor='#ef4444'; this.style.color='#ffffff';"
-                                    onmouseout="this.style.backgroundColor='transparent'; this.style.color='#ef4444';">
+                                <button type="submit" class="px-4 py-1.5 border border-red-500 text-red-500 hover:bg-red-500 hover:text-white rounded-full text-sm font-semibold transition-all">
                                     Logout
                                 </button>
                             </form>
                         </div>
                     @else
-                        <!-- Tampilan jika Belum Login -->
-                        <a href="{{ route('login') }}" class="btn-login">Login</a>
+                        <a href="{{ route('login') }}" class="px-6 py-2 border border-[#064e3b] text-[#064e3b] hover:bg-[#064e3b] hover:text-white rounded-full text-sm font-semibold transition-all">Login</a>
                     @endauth
                 </div>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="flex md:hidden">
+                    <button @click="open = !open" type="button" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path x-show="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
             </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="open" x-transition class="md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-4 space-y-3">
+            <a href="{{ route('home') }}" class="block text-sm font-semibold text-gray-700 hover:text-[#064e3b] py-1">Beranda</a>
+            <a href="{{ route('tracking.index') }}" class="block text-sm font-semibold text-gray-700 hover:text-[#064e3b] py-1">Cek Status</a>
+            @auth
+                @if(!in_array(Auth::user()->role, ['admin', 'konselor']))
+                    <a href="{{ route('history') }}" class="block text-sm font-semibold text-gray-700 hover:text-[#064e3b] py-1">Riwayat Konseling</a>
+                @endif
+                <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
+                    @if(in_array(Auth::user()->role, ['admin', 'konselor']))
+                        <a href="{{ route('admin.dashboard') }}" class="text-sm font-semibold text-[#064e3b]">Dashboard Admin</a>
+                    @else
+                        <a href="{{ route('profile') }}" class="text-sm font-semibold text-gray-800">👤 {{ Auth::user()->name }}</a>
+                    @endif
+                    <form action="{{ route('logout') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="text-xs text-red-500 font-semibold border border-red-500 px-3 py-1 rounded-full">Logout</button>
+                    </form>
+                </div>
+            @else
+                <div class="pt-2 border-t border-gray-100">
+                    <a href="{{ route('login') }}" class="inline-block px-5 py-1.5 border border-[#064e3b] text-[#064e3b] rounded-full text-xs font-semibold">Login</a>
+                </div>
+            @endauth
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main>
+    <main class="flex-grow">
         @if(session('success'))
-            <div style="max-width: 1280px; margin: 0 auto; padding: 1rem;">
-                <div
-                    style="background-color: #d1fae5; border: 1px solid #10b981; color: #047857; padding: 1rem; border-radius: 0.5rem;">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+                <div class="bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-3 rounded-xl text-sm font-medium">
                     {{ session('success') }}
                 </div>
             </div>
         @endif
 
         @if(session('error'))
-            <div style="max-width: 1280px; margin: 0 auto; padding: 1rem;">
-                <div
-                    style="background-color: #fee2e2; border: 1px solid #ef4444; color: #b91c1c; padding: 1rem; border-radius: 0.5rem;">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+                <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl text-sm font-medium">
                     {{ session('error') }}
                 </div>
             </div>
@@ -106,9 +125,9 @@
     </main>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2026 UNESA.</p>
+    <footer class="bg-white border-t border-gray-100 py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-xs sm:text-sm text-gray-500 font-medium">&copy; 2026 UNESA.</p>
         </div>
     </footer>
 
