@@ -56,6 +56,46 @@ class CounselorController extends Controller
     }
 
     /**
+     * Menampilkan form edit data konselor.
+     */
+    public function edit(string $id)
+    {
+        $counselor = User::where('role', 'konselor')->findOrFail($id);
+        return view('admin.counselors.edit', compact('counselor'));
+    }
+
+    /**
+     * Memperbarui data konselor di database.
+     */
+    public function update(Request $request, string $id)
+    {
+        $counselor = User::where('role', 'konselor')->findOrFail($id);
+
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|string|email|max:255|unique:users,email,' . $counselor->id,
+            'password' => 'nullable|string|min:8',
+        ], [
+            'name.required'  => 'Nama konselor wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email'    => 'Format email tidak valid.',
+            'email.unique'   => 'Email sudah terdaftar.',
+            'password.min'   => 'Password minimal 8 karakter.',
+        ]);
+
+        $counselor->name = $request->name;
+        $counselor->email = $request->email;
+
+        if ($request->filled('password')) {
+            $counselor->password = Hash::make($request->password);
+        }
+
+        $counselor->save();
+
+        return redirect()->route('admin.counselors.index')->with('success', 'Data konselor berhasil diperbarui.');
+    }
+
+    /**
      * Menghapus data konselor.
      */
     public function destroy(string $id)
