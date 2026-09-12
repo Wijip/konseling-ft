@@ -130,8 +130,8 @@
                             <div class="max-h-[360px] overflow-y-auto pr-1 space-y-3">
                                 @forelse($selectedDateSlots as $slot)
                                     <div @click="selectedSlot = {{ $slot->id }}"
-                                        class="cursor-pointer border-2 rounded-2xl p-4 transition-all flex items-center justify-between gap-3 bg-white hover:border-[#064e3b]"
-                                        :class="selectedSlot === {{ $slot->id }} ? 'bg-[#064e3b] border-[#064e3b] text-white shadow-lg shadow-[#064e3b]/20' : 'border-gray-100 text-gray-800'">
+                                        class="cursor-pointer border-2 rounded-2xl p-4 transition-all flex items-center justify-between gap-3 hover:border-[#064e3b]"
+                                        :class="selectedSlot === {{ $slot->id }} ? 'bg-[#064e3b] border-[#064e3b] text-white shadow-lg shadow-[#064e3b]/20' : 'bg-white border-gray-100 text-gray-800'">
 
                                         {{-- Jam dan Status --}}
                                         <div class="flex flex-col shrink-0">
