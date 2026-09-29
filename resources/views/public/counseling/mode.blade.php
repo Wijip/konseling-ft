@@ -86,7 +86,7 @@
                             Pertemuan Langsung
                         </h2>
                         <p class="text-gray-500 text-sm text-center leading-relaxed mb-8">
-                            Atur jadwal sesi tatap muka dengan tim konselor HC untuk pembahasan yang lebih mendalam dan personal.
+                            Atur jadwal sesi tatap muka dengan tim konselor FT untuk pembahasan yang lebih mendalam dan personal.
                         </p>
 
                         {{-- Features List --}}

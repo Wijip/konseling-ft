@@ -146,15 +146,26 @@
             <!-- User Info & Logout -->
             <div class="bg-[#043e2f] p-4 border-t border-white/10">
                 <div class="bg-white/10 p-3 rounded-xl border border-white/15 flex items-center justify-between gap-3">
-                    <div class="flex items-center gap-2.5 min-w-0">
-                        <div class="w-8 h-8 rounded-full bg-[#064e3b] text-white border border-white/30 flex items-center justify-center font-bold text-xs shrink-0">
-                            {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
+                    <a href="{{ route('admin.profile.edit') }}" 
+                       class="flex items-center gap-2.5 min-w-0 group hover:opacity-90 transition-all"
+                       title="Kelola Profil Saya">
+                        <div class="w-8 h-8 rounded-full bg-[#064e3b] text-white border border-white/30 flex items-center justify-center font-bold text-xs shrink-0 overflow-hidden">
+                            @if(auth()->user()->avatar)
+                                <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" class="w-full h-full object-cover">
+                            @else
+                                {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
+                            @endif
                         </div>
                         <div class="min-w-0">
-                            <p class="text-white text-xs font-bold truncate leading-tight">{{ auth()->user()->name ?? 'Administrator' }}</p>
+                            <p class="text-white text-xs font-bold truncate leading-tight flex items-center gap-1 group-hover:text-emerald-200 transition-colors">
+                                <span>{{ auth()->user()->name ?? 'Administrator' }}</span>
+                                <svg class="w-3 h-3 text-emerald-300 opacity-70 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                </svg>
+                            </p>
                             <p class="text-white/70 text-[11px] truncate leading-tight mt-0.5">{{ auth()->user()->email ?? '' }}</p>
                         </div>
-                    </div>
+                    </a>
                     <form action="{{ route('logout') }}" method="POST" class="shrink-0">
                         @csrf
                         <button type="submit"

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CounselingController as AdminCounselingController
 use App\Http\Controllers\Admin\MeetingScheduleController;
 use App\Http\Controllers\Admin\MeetingBookingController;
 use App\Http\Controllers\Admin\CounselorController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -65,6 +66,11 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Admin Routes (Protected by Auth & Admin Role)
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Route Profile Admin
+    Route::get('profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('profile', [AdminProfileController::class, 'update'])->name('profile.update');
+    Route::put('profile/password', [AdminProfileController::class, 'updatePassword'])->name('profile.updatePassword');
 
     // Custom route for reply MUST be before resource or handled specifically
     Route::post('counseling/{id}/reply', [AdminCounselingController::class, 'reply'])->name('counseling.reply');

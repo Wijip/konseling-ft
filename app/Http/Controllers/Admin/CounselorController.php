@@ -33,9 +33,10 @@ class CounselorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8',
+            'name'         => 'required|string|max:255',
+            'email'        => 'required|string|email|max:255|unique:users,email',
+            'phone_number' => 'nullable|string|max:20',
+            'password'     => 'required|string|min:8',
         ], [
             'name.required'     => 'Nama konselor wajib diisi.',
             'email.required'    => 'Email wajib diisi.',
@@ -46,10 +47,11 @@ class CounselorController extends Controller
         ]);
 
         User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-            'role'     => 'konselor',
+            'name'         => $request->name,
+            'email'        => $request->email,
+            'phone_number' => $request->phone_number,
+            'password'     => Hash::make($request->password),
+            'role'         => 'konselor',
         ]);
 
         return redirect()->route('admin.counselors.index')->with('success', 'Konselor berhasil ditambahkan.');
@@ -72,9 +74,10 @@ class CounselorController extends Controller
         $counselor = User::where('role', 'konselor')->findOrFail($id);
 
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|string|email|max:255|unique:users,email,' . $counselor->id,
-            'password' => 'nullable|string|min:8',
+            'name'         => 'required|string|max:255',
+            'email'        => 'required|string|email|max:255|unique:users,email,' . $counselor->id,
+            'phone_number' => 'nullable|string|max:20',
+            'password'     => 'nullable|string|min:8',
         ], [
             'name.required'  => 'Nama konselor wajib diisi.',
             'email.required' => 'Email wajib diisi.',
@@ -85,6 +88,7 @@ class CounselorController extends Controller
 
         $counselor->name = $request->name;
         $counselor->email = $request->email;
+        $counselor->phone_number = $request->phone_number;
 
         if ($request->filled('password')) {
             $counselor->password = Hash::make($request->password);

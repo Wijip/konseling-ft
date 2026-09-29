@@ -44,6 +44,18 @@
                 @enderror
             </div>
 
+            {{-- No. WhatsApp / HP --}}
+            <div>
+                <label for="phone_number" class="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
+                    No. WhatsApp / HP
+                </label>
+                <input type="text" name="phone_number" id="phone_number" value="{{ old('phone_number') }}" placeholder="Contoh: 081234567890"
+                    class="w-full px-3.5 py-2.5 text-xs sm:text-sm border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#064e3b]/20 bg-white transition-all placeholder-slate-400 @error('phone_number') border-red-500 focus:border-red-500 @else border-slate-300 focus:border-[#064e3b] @enderror">
+                @error('phone_number')
+                    <p class="text-red-600 text-xs mt-1.5 font-medium">{{ $message }}</p>
+                @enderror
+            </div>
+
             {{-- Password --}}
             <div>
                 <label for="password" class="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5">
