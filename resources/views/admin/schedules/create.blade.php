@@ -1,6 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Tambah Slot Jadwal')
+@section('header_title', 'Tambah Slot Jadwal')
+@section('header_subtitle', 'Atur jadwal ketersediaan sesi konseling tatap muka.')
 
 @section('content')
     <!-- Back Link -->

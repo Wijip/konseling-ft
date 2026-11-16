@@ -1,6 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Daftar Konseling')
+@section('header_title', 'Konseling Chat')
+@section('header_subtitle', 'Pantau dan kelola seluruh sesi percakapan konseling mahasiswa.')
 
 @php
     $topicLabels = [

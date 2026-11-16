@@ -1,6 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Detail Konseling')
+@section('header_title', 'Detail Sesi Konseling')
+@section('header_subtitle', 'Ruang obrolan konseling aktif mahasiswa.')
 
 @section('content')
     <!-- Back Link -->

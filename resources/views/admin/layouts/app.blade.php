@@ -143,46 +143,81 @@
                 </nav>
             </div>
 
-            <!-- User Info & Logout -->
-            <div class="bg-[#043e2f] p-4 border-t border-white/10">
-                <div class="bg-white/10 p-3 rounded-xl border border-white/15 flex items-center justify-between gap-3">
-                    <a href="{{ route('admin.profile.edit') }}" 
-                       class="flex items-center gap-2.5 min-w-0 group hover:opacity-90 transition-all"
-                       title="Kelola Profil Saya">
-                        <div class="w-8 h-8 rounded-full bg-[#064e3b] text-white border border-white/30 flex items-center justify-center font-bold text-xs shrink-0 overflow-hidden">
-                            @if(auth()->user()->avatar)
-                                <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" class="w-full h-full object-cover">
-                            @else
-                                {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
-                            @endif
-                        </div>
-                        <div class="min-w-0">
-                            <p class="text-white text-xs font-bold truncate leading-tight flex items-center gap-1 group-hover:text-emerald-200 transition-colors">
-                                <span>{{ auth()->user()->name ?? 'Administrator' }}</span>
-                                <svg class="w-3 h-3 text-emerald-300 opacity-70 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                </svg>
-                            </p>
-                            <p class="text-white/70 text-[11px] truncate leading-tight mt-0.5">{{ auth()->user()->email ?? '' }}</p>
-                        </div>
-                    </a>
-                    <form action="{{ route('logout') }}" method="POST" class="shrink-0">
-                        @csrf
-                        <button type="submit"
-                            class="text-white/80 hover:text-white p-1 transition-colors cursor-pointer"
-                            title="Logout">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                            </svg>
-                        </button>
-                    </form>
-                </div>
+            <!-- Sidebar Footer -->
+            <div class="p-4 border-t border-white/10 text-center">
+                <p class="text-[11px] text-white/60 font-semibold tracking-wide">FT UNESA</p>
+                <p class="text-[10px] text-white/40 mt-0.5">&copy; {{ date('Y') }} Layanan Konseling</p>
             </div>
         </aside>
 
         <!-- Main Content Area -->
         <main class="flex-1 w-full min-w-0 p-4 sm:p-6 lg:p-10 overflow-y-auto">
+            
+            <!-- Topbar Header (Title & Subtitle + Top-Right Profile & Logout Widget) -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-[#064e3b] tracking-tight">
+                        @yield('header_title', View::getSection('title', 'Dashboard'))
+                    </h1>
+                    <p class="text-slate-500 text-sm sm:text-base mt-1">
+                        @yield('header_subtitle', 'Selamat datang, ' . (auth()->user()->name ?? 'Admin FT UNESA'))
+                    </p>
+                </div>
+
+                <!-- User Profile & Logout Widget (Pojok Kanan Atas - Sesuai Lingkaran Biru) -->
+                <div class="flex items-center gap-3 self-start sm:self-auto shrink-0">
+                    <div class="bg-white pl-2.5 pr-3 py-1.5 sm:pl-3 sm:pr-3.5 sm:py-2 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all flex items-center gap-3">
+                        <!-- Profile Button / Link -->
+                        <a href="{{ route('admin.profile.edit') }}" 
+                           class="flex items-center gap-2.5 sm:gap-3 min-w-0 group"
+                           title="Klik untuk kelola Profil & Ganti Password">
+                            <!-- Avatar Circle -->
+                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#064e3b] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center border-2 border-emerald-100 shadow-xs overflow-hidden shrink-0 group-hover:scale-105 transition-transform">
+                                @if(auth()->user()->avatar)
+                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" class="w-full h-full object-cover">
+                                @else
+                                    {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
+                                @endif
+                            </div>
+                            
+                            <!-- Identity Info -->
+                            <div class="min-w-0 text-left">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-[#064e3b] transition-colors truncate max-w-[120px] sm:max-w-[160px] leading-tight">
+                                        {{ auth()->user()->name ?? 'Administrator' }}
+                                    </span>
+                                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-[#064e3b] shrink-0 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                    </svg>
+                                </div>
+                                <div class="flex items-center gap-1.5 mt-0.5">
+                                    <span class="bg-emerald-50 text-[#064e3b] text-[10px] font-extrabold px-1.5 py-0.2 rounded border border-emerald-200/70 shrink-0">Admin</span>
+                                    <span class="text-slate-400 text-[11px] truncate max-w-[110px] sm:max-w-[150px] font-medium leading-tight">
+                                        {{ auth()->user()->email ?? '' }}
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Divider Separator -->
+                        <div class="h-7 w-px bg-slate-200 shrink-0"></div>
+
+                        <!-- Logout Form -->
+                        <form action="{{ route('logout') }}" method="POST" class="shrink-0 m-0">
+                            @csrf
+                            <button type="submit"
+                                class="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all text-xs font-semibold cursor-pointer group"
+                                title="Logout dari Sistem">
+                                <svg class="w-4 h-4 text-slate-400 group-hover:text-red-600 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                </svg>
+                                <span class="hidden md:inline group-hover:text-red-600 transition-colors">Logout</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
             @if(session('success'))
                 <div class="bg-emerald-50 border border-emerald-200 text-[#064e3b] p-4 rounded-xl font-semibold mb-6 text-sm flex items-center justify-between">
                     <span>{{ session('success') }}</span>
@@ -198,6 +233,29 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- Script Global Toggle Password -->
+    <script>
+        document.addEventListener('click', function (e) {
+            const button = e.target.closest('.toggle-password-btn');
+            if (!button) return;
+
+            const targetId = button.getAttribute('data-target');
+            const input = document.getElementById(targetId);
+            const eyeIcon = button.querySelector('.eye-icon');
+
+            if (input && eyeIcon) {
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+
+                if (isPassword) {
+                    eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858-5.908a10.025 10.025 0 011.832-.443c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21M3 3l18 18" />`;
+                } else {
+                    eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />`;
+                }
+            }
+        });
+    </script>
 
     @stack('scripts')
 </body>

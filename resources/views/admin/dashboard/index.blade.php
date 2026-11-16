@@ -1,14 +1,10 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Dashboard')
+@section('header_title', 'Dashboard')
+@section('header_subtitle', 'Selamat datang, ' . auth()->user()->name)
 
 @section('content')
-    <!-- Header Section -->
-    <div class="mb-8">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-[#064e3b] tracking-tight">Dashboard</h1>
-        <p class="text-slate-500 text-sm sm:text-base mt-1">Selamat datang, {{ auth()->user()->name }}</p>
-    </div>
-
     <!-- Stats Cards Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
         <!-- Stat Card 1 -->

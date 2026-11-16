@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'phone_number',
+        'nim_nip',
+        'rumpun',
         'avatar',
         'password',
         'role',
@@ -40,6 +42,39 @@ class User extends Authenticatable
     public function isKonselor(): bool
     {
         return $this->role === 'konselor' || $this->role === 'admin';
+    }
+
+    /**
+     * Cari user berdasarkan nomor WhatsApp / HP dengan fleksibilitas format (08, 62, +62)
+     */
+    public static function findByPhone(?string $rawPhone): ?self
+    {
+        if (empty($rawPhone)) {
+            return null;
+        }
+
+        $clean = preg_replace('/[^0-9]/', '', $rawPhone);
+        if (empty($clean)) {
+            return null;
+        }
+
+        // Variasi format nomor
+        $variations = [$rawPhone, $clean];
+        if (str_starts_with($clean, '62')) {
+            $variations[] = '0' . substr($clean, 2);
+            $variations[] = '+' . $clean;
+            $variations[] = substr($clean, 2);
+        } elseif (str_starts_with($clean, '0')) {
+            $variations[] = '62' . substr($clean, 1);
+            $variations[] = '+62' . substr($clean, 1);
+            $variations[] = substr($clean, 1);
+        }
+
+        return static::where(function ($query) use ($variations) {
+            foreach (array_unique($variations) as $var) {
+                $query->orWhere('phone_number', $var);
+            }
+        })->first();
     }
 
     /**

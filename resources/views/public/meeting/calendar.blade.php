@@ -162,7 +162,7 @@
                                             
                                             <div class="flex flex-col min-w-0">
                                                 <div class="font-extrabold text-xs sm:text-sm uppercase leading-tight truncate">
-                                                    {{ $slot->konselor_name ?? ($slot->konselor->name ?? 'Tim HC') }}
+                                                    {{ $slot->konselor_name ?? ($slot->konselor->name ?? 'Tim FT') }}
                                                 </div>
                                                 
                                                 @php

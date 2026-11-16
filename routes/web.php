@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\CounselorController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -22,6 +24,8 @@ Route::get('/history', [HomeController::class, 'history'])->name('history')->mid
 
 // Profil User (Protected by Auth & Prevent Admin - Hanya Pengguna Non-Admin)
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile')->middleware(['auth', 'prevent_admin']);
+Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware(['auth', 'prevent_admin']);
+Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword')->middleware(['auth', 'prevent_admin']);
 
 // Counseling (Protected by Auth & Prevent Admin - Hanya Pengguna Non-Admin)
 Route::prefix('counseling')->name('counseling.')->middleware(['auth', 'prevent_admin'])->group(function () {
@@ -59,6 +63,15 @@ Route::middleware('guest')->group(function () {
     // Route Registrasi
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register'])->name('register.store');
+
+    // Route Lupa Password via WhatsApp OTP
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetOtp'])->middleware('throttle:5,1')->name('password.phone');
+    Route::post('/forgot-password-email', [ForgotPasswordController::class, 'sendResetOtp'])->name('password.email');
+
+    // Route Reset Password
+    Route::get('/reset-password/{token?}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -85,4 +98,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('schedules', MeetingScheduleController::class);
     Route::resource('bookings', MeetingBookingController::class);
     Route::resource('counselors', CounselorController::class);
+});
+
+// Route pembersih cache sementara
+Route::get('/clear-cache-temp', function () {
+    \Illuminate\Support\Facades\Artisan::call('cache:clear');
+    return 'Cache berhasil dibersihkan!';
 });

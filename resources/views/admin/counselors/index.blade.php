@@ -1,6 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Kelola Data Konselor')
+@section('header_title', 'Kelola Konselor')
+@section('header_subtitle', 'Manajemen daftar konselor dan psikolog Fakultas Teknik UNESA.')
 
 @section('content')
     <div x-data="{ showDeleteModal: false, deleteUrl: '', counselorName: '' }" class="bg-white rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm p-5 sm:p-7">

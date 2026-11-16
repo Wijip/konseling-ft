@@ -1,6 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Kelola Jadwal Pertemuan')
+@section('header_title', 'Kelola Slot Jadwal')
+@section('header_subtitle', 'Atur ketersediaan waktu dan slot konseling tatap muka.')
 
 @section('content')
     <div class="bg-white rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm p-5 sm:p-7">

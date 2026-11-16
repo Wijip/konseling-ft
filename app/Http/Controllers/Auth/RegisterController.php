@@ -25,25 +25,31 @@ class RegisterController extends Controller
     {
         // 1. Validasi Input
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'name'         => 'required|string|max:255',
+            'email'        => 'required|string|email|max:255|unique:users',
+            'phone_number' => 'required|string|min:10|max:20|unique:users,phone_number',
+            'password'     => 'required|string|min:8|confirmed',
         ], [
-            'name.required'      => 'Nama lengkap wajib diisi.',
-            'email.required'     => 'Email wajib diisi.',
-            'email.email'        => 'Format email tidak valid.',
-            'email.unique'       => 'Email sudah terdaftar.',
-            'password.required'  => 'Password wajib diisi.',
-            'password.min'       => 'Password minimal 8 karakter.',
-            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+            'name.required'         => 'Nama lengkap wajib diisi.',
+            'email.required'        => 'Email wajib diisi.',
+            'email.email'           => 'Format email tidak valid.',
+            'email.unique'          => 'Email sudah terdaftar.',
+            'phone_number.required' => 'Nomor WhatsApp wajib diisi.',
+            'phone_number.min'      => 'Nomor WhatsApp minimal 10 digit.',
+            'phone_number.max'      => 'Nomor WhatsApp maksimal 20 digit.',
+            'phone_number.unique'   => 'Nomor WhatsApp sudah terdaftar.',
+            'password.required'     => 'Password wajib diisi.',
+            'password.min'          => 'Password minimal 8 karakter.',
+            'password.confirmed'    => 'Konfirmasi password tidak cocok.',
         ]);
 
         // 2. Buat User Baru dengan role dikunci sebagai 'user'
         $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-            'role'     => 'user', // Otomatis diset sebagai user biasa
+            'name'         => $request->name,
+            'email'        => $request->email,
+            'phone_number' => preg_replace('/[^0-9]/', '', $request->phone_number),
+            'password'     => Hash::make($request->password),
+            'role'         => 'user', // Otomatis diset sebagai user biasa
         ]);
 
         // 3. Otomatis Login setelah berhasil mendaftar

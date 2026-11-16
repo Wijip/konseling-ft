@@ -49,6 +49,17 @@
                 @enderror
             </div>
 
+            <!-- Nomor WhatsApp -->
+            <div>
+                <label for="phone_number" class="block text-sm font-semibold text-slate-700 mb-2">Nomor WhatsApp</label>
+                <input type="tel" name="phone_number" id="phone_number" value="{{ old('phone_number') }}"
+                    class="w-full px-4 py-3 border rounded-xl text-sm text-slate-900 focus:outline-none focus:border-[#064e3b] focus:ring-2 focus:ring-[#064e3b]/20 transition-all placeholder-slate-400 @error('phone_number') border-red-500 @else border-slate-300 @enderror" 
+                    placeholder="Contoh: 081234567890" required>
+                @error('phone_number')
+                    <p class="text-red-600 text-xs mt-1.5 font-medium">{{ $message }}</p>
+                @enderror
+            </div>
+
             <!-- Password -->
             <div>
                 <label for="password" class="block text-sm font-semibold text-slate-700 mb-2">Password</label>

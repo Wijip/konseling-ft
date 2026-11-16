@@ -15,17 +15,34 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Tentukan password khusus admin di sini
+        // Akun Administrator
         $adminPassword = 'password';
 
-        User::updateOrCreate(
-            ['email' => 'admin@unesa.ac.id'],
+        $admins = [
             [
                 'name' => 'Admin FT UNESA',
-                'password' => Hash::make($adminPassword),
-                'role' => 'admin',
-            ]
-        );
+                'email' => 'admin@unesa.ac.id',
+            ],
+            [
+                'name' => 'Nindya',
+                'email' => 'nindya@unesa.ac.id',
+            ],
+            [
+                'name' => 'Ammanda',
+                'email' => 'ammanda@unesa.ac.id',
+            ],
+        ];
+
+        foreach ($admins as $adminData) {
+            User::updateOrCreate(
+                ['email' => $adminData['email']],
+                [
+                    'name' => $adminData['name'],
+                    'password' => Hash::make($adminPassword),
+                    'role' => 'admin',
+                ]
+            );
+        }
 
         $konselors = [
             [

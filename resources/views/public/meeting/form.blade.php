@@ -46,7 +46,7 @@
                         </div>
                         <div>
                             <span class="text-emerald-700 block mb-1 text-[11px] uppercase tracking-wider font-bold">Konselor</span>
-                            <p class="font-bold text-[#064e3b] m-0">{{ $schedule->konselor_name ?? ($schedule->konselor->name ?? 'Tim HC') }}</p>
+                            <p class="font-bold text-[#064e3b] m-0">{{ $schedule->konselor_name ?? ($schedule->konselor->name ?? 'Tim FT') }}</p>
                         </div>
                         <div>
                             <span class="text-emerald-700 block mb-1 text-[11px] uppercase tracking-wider font-bold">Sisa Slot</span>

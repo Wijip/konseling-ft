@@ -28,6 +28,8 @@ class ProfileController extends Controller
         $request->validate([
             'name'         => 'required|string|max:255',
             'email'        => 'required|string|email|max:255|unique:users,email,' . $admin->id,
+            'nim_nip'      => 'nullable|string|max:50',
+            'rumpun'       => 'nullable|string|max:100',
             'phone_number' => 'nullable|string|max:20',
             'avatar'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
@@ -42,6 +44,8 @@ class ProfileController extends Controller
 
         $admin->name = $request->name;
         $admin->email = $request->email;
+        $admin->nim_nip = $request->nim_nip;
+        $admin->rumpun = $request->rumpun;
         $admin->phone_number = $request->phone_number;
 
         // Proses unggah foto avatar

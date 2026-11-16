@@ -342,6 +342,8 @@ Untuk mengirim notifikasi email melalui Gmail:
 | Role | Email | Password |
 |------|-------|----------|
 | **Admin** | `admin@unesa.ac.id` | `password` |
+| **Admin** | `nindya@unesa.ac.id` | `password` |
+| **Admin** | `ammanda@unesa.ac.id` | `password` |
 | **Konselor** | `budi@unesa.ac.id` | `password` |
 
 > 🔑 **Penting:** Ganti password default sebelum deploy ke production!

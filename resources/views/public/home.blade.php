@@ -90,7 +90,7 @@
                             </div>
                             <h3 class="text-lg font-bold text-gray-900 mb-2">Pertemuan Langsung</h3>
                             <p class="text-gray-500 text-sm leading-relaxed mb-6">
-                                Jadwalkan sesi tatap muka untuk diskusi lebih mendalam dengan staf konselor HC.
+                                Jadwalkan sesi tatap muka untuk diskusi lebih mendalam dengan staf konselor FT.
                             </p>
                         </div>
                         <a href="{{ route('meeting.calendar') }}" class="text-amber-600 hover:text-amber-700 font-bold text-sm inline-flex items-center gap-2">

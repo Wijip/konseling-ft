@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MeetingBooking;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MeetingBookingController extends Controller
@@ -75,8 +76,12 @@ class MeetingBookingController extends Controller
 
         $bookings = $query->latest()->paginate(10)->withQueryString();
 
-        // Get distinct konselor names for filter dropdown
-        $konselorList = \App\Models\MeetingSchedule::distinct()->pluck('konselor_name')->filter()->sort()->values();
+        // Ambil daftar konselor resmi dari tabel users dengan role 'konselor'
+        $konselorList = User::where('role', 'konselor')
+            ->pluck('name')
+            ->filter()
+            ->sort()
+            ->values();
 
         return view('admin.bookings.index', compact('bookings', 'konselorList'));
     }

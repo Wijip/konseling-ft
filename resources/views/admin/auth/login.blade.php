@@ -22,6 +22,13 @@
                 <p class="text-gray-500 text-sm">Layanan konseling fakultas teknik</p>
             </div>
 
+            <!-- Session Status Alert -->
+            @if (session('status'))
+                <div class="mb-5 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-medium">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <!-- Form Section -->
             <form action="{{ route('login.post') }}" method="POST" class="space-y-5">
                 @csrf
@@ -58,11 +65,16 @@
                     @enderror
                 </div>
 
-                <!-- Checkbox Ingat Saya -->
-                <div class="flex items-center">
-                    <input type="checkbox" name="remember" id="remember"
-                        class="w-4 h-4 text-[#064e3b] border-gray-300 rounded focus:ring-[#064e3b] accent-[#064e3b] cursor-pointer">
-                    <label for="remember" class="ml-2 text-sm text-gray-600 cursor-pointer select-none">Ingat saya</label>
+                <!-- Checkbox Ingat Saya & Link Lupa Password -->
+                <div class="flex items-center justify-between text-sm">
+                    <div class="flex items-center">
+                        <input type="checkbox" name="remember" id="remember"
+                            class="w-4 h-4 text-[#064e3b] border-gray-300 rounded focus:ring-[#064e3b] accent-[#064e3b] cursor-pointer">
+                        <label for="remember" class="ml-2 text-gray-600 cursor-pointer select-none">Ingat saya</label>
+                    </div>
+                    <a href="{{ route('password.request') }}" class="text-[#064e3b] font-semibold hover:underline">
+                        Lupa password?
+                    </a>
                 </div>
 
                 <!-- Submit Button -->

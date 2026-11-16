@@ -1,6 +1,8 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Daftar Booking Pertemuan')
+@section('header_title', 'Konseling Pertemuan')
+@section('header_subtitle', 'Validasi dan kelola permintaan sesi tatap muka atau tatap maya.')
 
 @section('content')
     <div class="bg-white rounded-2xl sm:rounded-3xl border border-slate-100 shadow-sm p-5 sm:p-7">

@@ -117,7 +117,7 @@
                     <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-[#064e3b]">
                         <p class="font-bold text-sm mb-1">Instruksi:</p>
                         <p class="text-xs sm:text-sm leading-relaxed text-[#043e2f]">
-                            Apabila ada yang ingin ditanyakan atau terdapat perubahan jadwal, silakan menghubungi Contact Person HC berikut: 
+                            Apabila ada yang ingin ditanyakan atau terdapat perubahan jadwal, silakan menghubungi Contact Person FT berikut: 
                             <strong class="font-bold text-[#064e3b]">0812-3456-7789</strong>
                         </p>
                     </div>
